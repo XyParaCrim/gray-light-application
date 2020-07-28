@@ -4,6 +4,8 @@ import gray.light.support.error.ExtractRequestParamException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import perishing.constraint.jdbc.Page;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -20,6 +22,18 @@ public class RequestParamExtractors {
 
     public static String extract(ServerRequest request, String key) throws ExtractRequestParamException {
         return STRING_EXTRACTOR.extract(request, key);
+    }
+
+    /**
+     * 从请求中提取{@link Path}类型的参数
+     *
+     * @param request 请求
+     * @param key 参数名
+     * @return 提取路径
+     * @throws ExtractRequestParamException 参数缺失或者无法转换成路径
+     */
+    public static Path extractPath(ServerRequest request, String key) throws ExtractRequestParamException {
+        return PATH_EXTRACTOR.extract(request, key);
     }
 
     private static final Map<Class<?>, RequestParamExtractor<?>> EXTRACTOR_MAP = new HashMap<>(){{
@@ -88,6 +102,22 @@ public class RequestParamExtractors {
         }
 
         return param.get();
+    });
+
+    /**
+     * 提取字段，转换成{@link Path}类型
+     */
+    private final static RequestParamExtractor<Path> PATH_EXTRACTOR = ((request, key) -> {
+        Optional<String> path = request.queryParam(key);
+
+        Path location;
+        try {
+            location = Paths.get(path.orElseThrow());
+        } catch (Exception e) {
+            throw new ExtractRequestParamException("Illagal params '" + key + "': " + path.orElse("null"));
+        }
+
+        return location;
     });
 
 }

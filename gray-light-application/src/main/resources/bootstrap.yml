@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    zookeeper:
+      enabled: false
+      discovery:
+        enabled: false
+        connect-string: localhost:2181
+    loadbalancer:
+      cache:
+        enabled: false
+      ribbon:
+        enabled: false
+    circuitbreaker:
+      hystrix:
+        enabled: false

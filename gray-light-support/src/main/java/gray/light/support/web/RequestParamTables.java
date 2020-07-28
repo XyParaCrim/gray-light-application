@@ -3,6 +3,8 @@ package gray.light.support.web;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.CollectionsTreasureChest;
 
+import java.nio.file.Path;
+
 public final class RequestParamTables {
 
     public static final RequestParam<Long> OWNER_ID = paramTable("ownerId", RequestParamExtractors::extractLong);
@@ -11,7 +13,9 @@ public final class RequestParamTables {
 
     public static final RequestParam<Page> PAGE = paramTable("page", RequestParamExtractors::extractPage);
 
-    public static final RequestParam<Page> TAGS = paramTable("tage", RequestParamExtractors::extractPage);
+    public static final RequestParam<Page> TAGS = paramTable("tag", RequestParamExtractors::extractPage);
+
+    public static final RequestParam<Path> LOCATION = paramTable("location", RequestParamExtractors::extractPath);
 
 
     public static  <T> RequestParam<T> paramTable(String name, RequestParamExtractor<T> extractor) {
@@ -32,6 +36,10 @@ public final class RequestParamTables {
 
     public static RequestParam<Page> page() {
         return PAGE;
+    }
+
+    public static RequestParam<Path> location() {
+        return LOCATION;
     }
 
 }

@@ -2,7 +2,6 @@ gray/light/owner/entity/Owner.class
 gray/light/owner/business/ProjectDetailsFo.class
 gray/light/owner/entity/OwnerLink.class
 gray/light/owner/entity/ProjectDetails.class
-gray/light/owner/annotation/OwnerDomain.class
 gray/light/owner/service/ProjectDetailsService.class
 gray/light/owner/entity/ProjectStatus.class
 gray/light/owner/service/SuperOwnerService.class
