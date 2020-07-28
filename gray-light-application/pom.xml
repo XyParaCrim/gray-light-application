@@ -52,12 +52,12 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-<!--        <dependency>
+        <dependency>
             <groupId>org.excellent-cancer</groupId>
             <artifactId>gray-light-document</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
@@ -66,12 +66,12 @@
             <scope>compile</scope>
         </dependency>
 
-<!--        <dependency>
+        <dependency>
             <groupId>org.excellent-cancer</groupId>
             <artifactId>gray-light-note</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>

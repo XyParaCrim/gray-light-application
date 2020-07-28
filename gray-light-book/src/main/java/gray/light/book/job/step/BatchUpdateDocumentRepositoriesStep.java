@@ -3,7 +3,7 @@ package gray.light.book.job.step;
 import gray.light.book.DocumentRepositoryVisitor;
 import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookChapter;
-import gray.light.book.service.BookService;
+import gray.light.book.service.WritableBookService;
 import gray.light.owner.entity.ProjectDetails;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 public class BatchUpdateDocumentRepositoriesStep {
 
     @NonNull
-    private final BookService bookService;
+    private final WritableBookService writableBookService;
 
     public void execute(@NonNull List<DocumentRepositoryVisitor> visitors, @NonNull List<ProjectDetails> emptyDocument) {
         List<BookCatalog> catalogs = catalogs(visitors);
         List<BookChapter> chapters = chapters(visitors);
 
         // 更新文档状态
-        bookService.batchSyncBookFromPending(emptyDocument, catalogs, chapters);
+        writableBookService.batchSyncBookFromPending(emptyDocument, catalogs, chapters);
     }
 
     private List<BookCatalog> catalogs(List<DocumentRepositoryVisitor> visitors) {

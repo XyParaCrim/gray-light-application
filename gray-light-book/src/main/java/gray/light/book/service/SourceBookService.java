@@ -13,7 +13,7 @@ import java.nio.file.Path;
  */
 @CommonsLog
 @RequiredArgsConstructor
-public class BookSourceService {
+public class SourceBookService {
 
     private static final String CHAPTER_EXTENSION = "md";
 

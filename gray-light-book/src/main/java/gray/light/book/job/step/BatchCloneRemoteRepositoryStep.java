@@ -1,7 +1,6 @@
 package gray.light.book.job.step;
 
-import gray.light.book.job.step.AbstractExecuteStep;
-import gray.light.book.service.BookRepositoryCacheService;
+import gray.light.book.service.LocalCacheBookService;
 import gray.light.owner.entity.ProjectDetails;
 import gray.light.owner.entity.ProjectStatus;
 import lombok.Getter;
@@ -41,7 +40,7 @@ public class BatchCloneRemoteRepositoryStep extends AbstractExecuteStep<ProjectD
     }
 
     @NonNull
-    private final BookRepositoryCacheService bookRepositoryCacheService;
+    private final LocalCacheBookService localCacheBookService;
 
     /**
      * 根据一组文档实体，克隆其文档仓库至缓存中
@@ -141,7 +140,7 @@ public class BatchCloneRemoteRepositoryStep extends AbstractExecuteStep<ProjectD
         @Override
         public ProjectDetails get() {
             try {
-                bookRepositoryCacheService.forceCacheRepository(document);
+                localCacheBookService.forceCacheRepository(document);
                 success(document);
             } catch (Exception e) {
                 failed(document, e);

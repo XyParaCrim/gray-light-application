@@ -1,76 +1,43 @@
 package gray.light.document.config;
 
-import gray.light.book.job.CheckDocumentRepositoryJob;
-import gray.light.book.job.UploadDocumentRepositoryJob;
-import gray.light.book.service.BookService;
-import gray.light.book.service.BookSourceService;
-import gray.light.document.service.DocumentRelationService;
-import gray.light.book.service.BookRepositoryCacheService;
+import gray.light.book.job.AutoCheckBookUpdateJob;
+import gray.light.book.job.AutoUpdateBookJob;
+import gray.light.book.service.WritableBookService;
+import gray.light.book.service.SourceBookService;
+import gray.light.book.service.LocalCacheBookService;
+import gray.light.document.service.ReadableDocumentService;
 import gray.light.owner.entity.ProjectDetails;
 import gray.light.owner.entity.ProjectStatus;
-import gray.light.owner.service.ProjectDetailsService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.apachecommons.CommonsLog;
 import org.quartz.*;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import perishing.constraint.jdbc.Page;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 /**
+ * 配置文档的定时任务
+ *
  * @author XyParaCrim
  */
-@CommonsLog
-@Configuration
 public class DocumentJobConfiguration {
 
-    @Configuration
-    @ConditionalOnClass({DocumentRelationService.class, BookRepositoryCacheService.class})
-    @ConditionalOnProperty(value = "gray.light.document.check-update.enabled", matchIfMissing = true)
-    @RequiredArgsConstructor
-    public static class CheckDocumentRepositoryConfiguration {
+    public static class AutoCheckDocumentUpdateJob {
 
-        private final DocumentRelationService documentRelationService;
-
-        private final BookRepositoryCacheService bookRepositoryCacheService;
-
-        private final ProjectDetailsService projectDetailsService;
-
-        private final BookService bookService;
-
-        private final BookSourceService bookSourceService;
-
-        @Bean("checkRepositoryDataMap")
-        public JobDataMap jobData() {
-            JobDataMap jobDataMap = new JobDataMap();
-
-            Supplier<List<ProjectDetails>> syncStatusProjectDetails = () -> documentRelationService.findProjectDetailsByStatus(ProjectStatus.SYNC, Page.unlimited());
-
-            jobDataMap.put("projectDetailsService", projectDetailsService);
-            jobDataMap.put("bookRepositoryCacheService", bookRepositoryCacheService);
-            jobDataMap.put("syncStatusProjectDetails", syncStatusProjectDetails);
-            jobDataMap.put("bookService", bookService);
-            jobDataMap.put("bookSourceService", bookSourceService);
-
-            return jobDataMap;
-        }
-
-        @Bean("checkDocumentRepositoryJobDetail")
-        public JobDetail checkDocumentRepositoryJobDetail(JobDataMap checkRepositoryDataMap) {
+        @Bean("checkDocumentUpdateJobDetail")
+        public JobDetail checkDocumentUpdateJobDetail(ReadableDocumentService readableDocumentService) {
             return JobBuilder.
-                    newJob(CheckDocumentRepositoryJob.class).
-                    usingJobData(checkRepositoryDataMap).
+                    newJob(AutoCheckBookUpdateJob.class).
+                    usingJobData(AutoCheckBookUpdateJob.requiredDataMap(readableDocumentService::findSyncProject)).
                     storeDurably().
                     build();
         }
 
         @Bean
-        public Trigger checkDocumentRepositoryTrigger(JobDetail checkDocumentRepositoryJobDetail) {
+        public Trigger checkDocumentUpdateTrigger(JobDetail checkDocumentUpdateJobDetail) {
             SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.
                     simpleSchedule().
                     withIntervalInHours(1).
@@ -78,53 +45,27 @@ public class DocumentJobConfiguration {
 
             return TriggerBuilder.
                     newTrigger().
-                    forJob(checkDocumentRepositoryJobDetail).
+                    forJob(checkDocumentUpdateJobDetail).
                     withSchedule(scheduleBuilder).
                     build();
         }
 
     }
 
-    @Configuration
-    @ConditionalOnProperty(value = "gray.light.document.upload-pending.enabled", matchIfMissing = true)
-    @RequiredArgsConstructor
-    @ConditionalOnClass({BookSourceService.class, BookRepositoryCacheService.class})
-    public static class UploadDocumentRepositoryConfiguration {
 
-        final DocumentRelationService documentService;
+    public static class AutoUpdateDocumentJob {
 
-        final BookService bookService;
-
-        final BookSourceService bookSourceService;
-
-        final BookRepositoryCacheService bookRepositoryCacheService;
-
-        @Bean("updateRepositoryDataMap")
-        public JobDataMap jobData() {
-            JobDataMap jobDataMap = new JobDataMap();
-
-            Supplier<List<ProjectDetails>> initStatusProjectDetails = () -> documentService.findProjectDetailsByStatus(ProjectStatus.INIT, Page.unlimited());
-
-            jobDataMap.put("bookService", bookService);
-            jobDataMap.put("bookSourceService", bookSourceService);
-            jobDataMap.put("bookRepositoryCacheService", bookRepositoryCacheService);
-            jobDataMap.put("initStatusProjectDetails", initStatusProjectDetails);
-
-            return jobDataMap;
-        }
-
-
-        @Bean("uploadDocumentRepositoryJobDetail")
-        public JobDetail uploadDocumentRepositoryJobDetail(JobDataMap updateRepositoryDataMap) {
+        @Bean("updateDocumentJobDetail")
+        public JobDetail updateDocumentJobDetail(ReadableDocumentService readableDocumentService) {
             return JobBuilder.
-                    newJob(UploadDocumentRepositoryJob.class).
-                    usingJobData(updateRepositoryDataMap).
+                    newJob(AutoUpdateBookJob.class).
+                    usingJobData(AutoUpdateBookJob.requiredDataMap(readableDocumentService::findInitProject)).
                     storeDurably().
                     build();
         }
 
         @Bean
-        public Trigger uploadDocumentRepositoryTrigger(JobDetail uploadDocumentRepositoryJobDetail) {
+        public Trigger updateDocumentTrigger(JobDetail updateDocumentJobDetail) {
             SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.
                     simpleSchedule().
                     withIntervalInHours(1).
@@ -132,9 +73,11 @@ public class DocumentJobConfiguration {
 
             return TriggerBuilder.
                     newTrigger().
-                    forJob(uploadDocumentRepositoryJobDetail).
+                    forJob(updateDocumentJobDetail).
                     withSchedule(scheduleBuilder).
                     build();
         }
+
     }
+
 }

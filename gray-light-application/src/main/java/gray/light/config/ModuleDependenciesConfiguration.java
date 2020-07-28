@@ -3,6 +3,9 @@ package gray.light.config;
 import floor.file.storage.annotation.FloorFileStorage;
 import floor.mybatis.plugins.annotation.FloorDefaultMybatisPlugins;
 import gray.light.blog.annotation.DomainBlog;
+import gray.light.book.annotation.HighDomainBook;
+import gray.light.document.annotation.DomainDocument;
+import gray.light.note.annotation.DomainNote;
 import gray.light.owner.annotation.DomainOwner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -24,11 +27,15 @@ public class ModuleDependenciesConfiguration {
 
     }
 
-    @DomainBlog
-    @DomainOwner
     @Configuration
     @AutoConfigureAfter(FloorComponentConfiguration.class)
     @RequiredArgsConstructor
+
+    @DomainBlog
+    @DomainNote
+    @DomainOwner
+    @DomainDocument
+    @HighDomainBook
     public static class GrayLightDomainConfiguration {
 
     }

@@ -22,7 +22,7 @@ import java.util.Optional;
  */
 @CommonsLog
 @RequiredArgsConstructor
-public class BookRepositoryCacheService {
+public class LocalCacheBookService {
 
     private final RepositoryDatabase<Long, Long> repositoryDatabase;
 

@@ -1,18 +1,18 @@
-package gray.light.owner.annotation;
+package gray.light.note.annotation;
 
-import gray.light.owner.config.OwnerAutoConfiguration;
+import gray.light.note.config.NoteAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * 自动配置owner领域
+ * 自动配置Note领域
  *
  * @author XyParaCrim
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(OwnerAutoConfiguration.class)
-public @interface DomainOwner {
+@Import(NoteAutoConfiguration.class)
+public @interface DomainNote {
 }

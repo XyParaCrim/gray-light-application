@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @author XyParaCrim
  */
 @Configuration
-@AdminDomainBlog
+//@AdminDomainBlog
 public class AdminAutoConfiguration {
 }

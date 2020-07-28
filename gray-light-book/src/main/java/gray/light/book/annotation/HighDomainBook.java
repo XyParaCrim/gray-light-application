@@ -1,18 +1,18 @@
-package gray.light.owner.annotation;
+package gray.light.book.annotation;
 
-import gray.light.owner.config.OwnerAutoConfiguration;
+import gray.light.book.config.BookAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * 自动配置owner领域
+ * 自动配置Book领域
  *
  * @author XyParaCrim
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(OwnerAutoConfiguration.class)
-public @interface DomainOwner {
+@Import(BookAutoConfiguration.class)
+public @interface HighDomainBook {
 }

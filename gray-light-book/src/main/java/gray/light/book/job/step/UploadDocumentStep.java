@@ -2,7 +2,7 @@ package gray.light.book.job.step;
 
 import gray.light.book.DocumentRepositoryVisitor;
 import gray.light.book.entity.BookChapter;
-import gray.light.book.service.BookSourceService;
+import gray.light.book.service.SourceBookService;
 import gray.light.owner.entity.ProjectDetails;
 import gray.light.owner.entity.ProjectStatus;
 import lombok.Getter;
@@ -38,7 +38,7 @@ public class UploadDocumentStep {
     }
 
     @NonNull
-    private final BookSourceService bookSourceService;
+    private final SourceBookService bookSourceService;
 
     /**
      * 上传文档章节到服务器。执行上传使用了{@link ForkJoinTask}的迭代任务，其中
@@ -68,7 +68,7 @@ public class UploadDocumentStep {
     @RequiredArgsConstructor
     private static class UploadedDocumentTask extends RecursiveAction {
 
-        private final BookSourceService bookSourceService;
+        private final SourceBookService bookSourceService;
 
         private final DocumentRepositoryVisitor visitor;
 

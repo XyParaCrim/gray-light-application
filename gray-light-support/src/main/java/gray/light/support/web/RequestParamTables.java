@@ -9,6 +9,8 @@ public final class RequestParamTables {
 
     public static final RequestParam<Long> OWNER_ID = paramTable("ownerId", RequestParamExtractors::extractLong);
 
+    public static final RequestParam<Long> WORKS_ID = paramTable("worksId", RequestParamExtractors::extractLong);
+
     public static final RequestParam<Long> ID = paramTable("id", RequestParamExtractors::extractLong);
 
     public static final RequestParam<Page> PAGE = paramTable("page", RequestParamExtractors::extractPage);
@@ -28,6 +30,10 @@ public final class RequestParamTables {
 
     public static RequestParam<Long> ownerId() {
         return OWNER_ID;
+    }
+
+    public static RequestParam<Long> worksId() {
+        return WORKS_ID;
     }
 
     public static RequestParam<Long> id() {

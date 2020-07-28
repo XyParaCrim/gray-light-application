@@ -1,38 +1,49 @@
 package gray.light.book.config;
 
 import floor.file.storage.FileStorage;
-import floor.file.storage.config.FloorFileStorageAutoConfiguration;
 import floor.repository.RepositoryDatabase;
-import gray.light.book.handler.BookHandler;
-import gray.light.book.service.BookRepositoryCacheService;
-import gray.light.book.service.BookService;
-import gray.light.book.service.BookSourceService;
+import gray.light.book.handler.BookQueryHandler;
+import gray.light.book.service.LocalCacheBookService;
+import gray.light.book.service.ReadableBookService;
+import gray.light.book.service.WritableBookService;
+import gray.light.book.service.SourceBookService;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-@ConditionalOnProperty(value = "gray.light.book.enabled", matchIfMissing = true)
-@Configuration
-@MapperScan("gray.light.book.repository")
-@Import({BookHandler.class, BookService.class})
+/**
+ * 关于book结构Git项目的所有配置
+ *
+ * @author XyParaCrim
+ */
+@MapperScan(BookAutoConfiguration.MAPPER_PACKAGE)
+@Import({
+        BookAutoConfiguration.CommonConfiguration.class,
+        BookAutoConfiguration.BookSourceConfiguration.class,
+        BookAutoConfiguration.BookRepositoryCacheConfiguration.class
+})
 public class BookAutoConfiguration {
 
-    @Configuration
+    public static final String MAPPER_PACKAGE = "gray.light.book.repository";
+
+    /**
+     * 只依赖数据库
+     */
+    @Import({ BookQueryHandler.class, ReadableBookService.class, WritableBookService.class})
+    public static class CommonConfiguration {
+
+    }
+
     @ConditionalOnBean(FileStorage.class)
-    @Import(BookSourceService.class)
-    public static class DocumentSourceConfiguration {
+    @Import(SourceBookService.class)
+    public static class BookSourceConfiguration {
 
     }
 
-    @Configuration
     @ConditionalOnBean(RepositoryDatabase.class)
-    @Import(BookRepositoryCacheService.class)
-    public static class DocumentRepositoryCacheConfiguration {
-    }
+    @Import(LocalCacheBookService.class)
+    public static class BookRepositoryCacheConfiguration {
 
+    }
 
 }

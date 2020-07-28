@@ -1,18 +1,20 @@
 package gray.light.book.job;
 
-import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookChapter;
-import gray.light.book.service.BookRepositoryCacheService;
-import gray.light.book.service.BookService;
-import gray.light.book.service.BookSourceService;
+import gray.light.book.service.LocalCacheBookService;
+import gray.light.book.service.ReadableBookService;
+import gray.light.book.service.SourceBookService;
+import gray.light.book.service.WritableBookService;
 import gray.light.owner.entity.ProjectDetails;
 import gray.light.owner.entity.ProjectStatus;
 import gray.light.owner.service.ProjectDetailsService;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import lombok.extern.apachecommons.CommonsLog;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import perishing.constraint.jdbc.Page;
 
 import java.util.List;
@@ -24,34 +26,35 @@ import java.util.function.Supplier;
  *
  * @author XyParaCrim
  */
-@CommonsLog
-public class CheckDocumentRepositoryJob extends QuartzJobBean {
+@Slf4j
+@RequiredArgsConstructor
+public class AutoCheckBookUpdateJob implements Job {
 
-    @Setter
-    private ProjectDetailsService projectDetailsService;
+    public static final String SYNC_STATUS_PROJECT_DETAILS = "syncStatusProjectDetails";
 
-    @Setter
-    private BookRepositoryCacheService bookRepositoryCacheService;
+    private final ProjectDetailsService projectDetailsService;
 
-    @Setter
-    private BookService bookService;
+    private final LocalCacheBookService localCacheBookService;
 
-    @Setter
-    private BookSourceService bookSourceService;
+    private final ReadableBookService readableBookService;
+
+    private final WritableBookService writableBookService;
+
+    private final SourceBookService bookSourceService;
 
     @Setter
     private Supplier<List<ProjectDetails>> syncStatusProjectDetails;
 
     @Override
     @SneakyThrows
-    protected void executeInternal(JobExecutionContext context) {
+    public void execute(JobExecutionContext context) {
         List<ProjectDetails> syncDocument = syncStatusProjectDetails.get();
         ListIterator<ProjectDetails> iterator = syncDocument.listIterator();
 
         while (iterator.hasNext()) {
             ProjectDetails document = iterator.next();
 
-            bookRepositoryCacheService.updateRepository(document);
+            localCacheBookService.updateRepository(document);
 
             switch (document.getStatus()) {
                 case SYNC:
@@ -67,10 +70,10 @@ public class CheckDocumentRepositoryJob extends QuartzJobBean {
 
         if (syncDocument.size() > 0) {
             for (ProjectDetails details : syncDocument) {
-                List<BookChapter> chapters = bookService.bookChapters(details.getOriginId(), Page.unlimited());
+                List<BookChapter> chapters = readableBookService.bookChapters(details.getOriginId(), Page.unlimited());
                 chapters.forEach(chapter -> bookSourceService.deleteChapter(chapter.getDownloadLink()));
 
-                bookService.deleleAllFromOwnerProject(details.getOriginId());
+                writableBookService.deleleAllFromOwnerProject(details.getOriginId());
                 details.setVersion("");
 
                 // TODO 应该为Pending，为了触发Update，则暂时为INIT
@@ -79,6 +82,13 @@ public class CheckDocumentRepositoryJob extends QuartzJobBean {
 
             projectDetailsService.batchUpdateStatusAndVersion(syncDocument);
         }
+    }
+
+    public static JobDataMap requiredDataMap(Supplier<List<ProjectDetails>> syncStatusProjectDetails) {
+        JobDataMap dataMap = new JobDataMap();
+        dataMap.put(SYNC_STATUS_PROJECT_DETAILS, syncStatusProjectDetails);
+
+        return dataMap;
     }
 
 }

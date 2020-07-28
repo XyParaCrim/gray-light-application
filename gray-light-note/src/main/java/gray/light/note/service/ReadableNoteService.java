@@ -7,18 +7,19 @@ import gray.light.owner.entity.ProjectStatus;
 import gray.light.owner.service.OverallOwnerService;
 import gray.light.owner.service.ProjectDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 import perishing.constraint.jdbc.Page;
 
 import java.util.List;
 
 /**
- * 笔记服务
+ * 笔记只读服务
  *
  * @author XyParaCrim
  */
+@Slf4j
 @RequiredArgsConstructor
-public class NoteService {
+public class ReadableNoteService {
 
     private final OverallOwnerService overallOwnerService;
 
@@ -36,17 +37,6 @@ public class NoteService {
     }
 
     /**
-     * 创建一个笔记项目并追踪它
-     *
-     * @param noteProject 笔记项目
-     * @param uncommited  项目详细
-     * @return 是否创建成功
-     */
-    public boolean createNote(OwnerProject noteProject, ProjectDetails uncommited) {
-        return projectDetailsService.addBookProjectDetailsSafely(noteProject, Scope.NOTE, uncommited);
-    }
-
-    /**
      * 查询指定范围和note的项目详细
      *
      * @param status 项目状态
@@ -56,4 +46,23 @@ public class NoteService {
     public List<ProjectDetails> findProjectDetailsByStatus(ProjectStatus status, Page page) {
         return projectDetailsService.findScopeProjectDetails(status, Scope.NOTE, page);
     }
+
+    /**
+     * 查询指定同步note的项目详细
+     *
+     * @return 查询指定同步note的项目详细
+     */
+    public List<ProjectDetails> findSyncProjectDetails() {
+        return projectDetailsService.findScopeProjectDetails(ProjectStatus.SYNC, Scope.NOTE, Page.unlimited().nullable());
+    }
+
+    /**
+     * 查询指定初始化note的项目详细
+     *
+     * @return 查询指定同步note的项目详细
+     */
+    public List<ProjectDetails> findInitProjectDetails() {
+        return projectDetailsService.findScopeProjectDetails(ProjectStatus.INIT, Scope.NOTE, Page.unlimited().nullable());
+    }
+
 }

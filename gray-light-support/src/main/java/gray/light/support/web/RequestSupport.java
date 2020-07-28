@@ -2,6 +2,8 @@ package gray.light.support.web;
 
 import gray.light.support.error.ExtractRequestParamException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.reactive.function.server.HandlerFunction;
+import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
@@ -22,6 +24,11 @@ import static gray.light.support.web.ResponseToClient.failWithMessage;
  */
 @Slf4j
 public final class RequestSupport {
+
+    public static HandlerFunction<ServerResponse> routerFunction(Function<FinalVariables<String>,
+            Mono<ServerResponse>> then, RequestParam<?> ...paramsTable) {
+        return request -> extract(request, then, paramsTable);
+    }
 
     public static Page extractPage(ServerRequest request) {
         Optional<String> pages = request.queryParam("pages");

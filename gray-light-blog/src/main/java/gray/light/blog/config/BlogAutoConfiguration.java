@@ -33,7 +33,6 @@ public class BlogAutoConfiguration {
 
     public static final String MAPPER_PACKAGE = "gray.light.blog.repository";
 
-
     @Import({
             BlogUpdateHandler.class,
             WritableBlogService.class,

@@ -5,13 +5,17 @@ import gray.light.book.job.step.BatchCloneRemoteRepositoryStep;
 import gray.light.book.job.step.BatchUpdateDocumentRepositoriesStep;
 import gray.light.book.job.step.UploadDocumentStep;
 import gray.light.book.job.step.VisitDocumentRepositoryStep;
-import gray.light.book.service.BookRepositoryCacheService;
-import gray.light.book.service.BookService;
-import gray.light.book.service.BookSourceService;
+import gray.light.book.service.LocalCacheBookService;
+import gray.light.book.service.WritableBookService;
+import gray.light.book.service.SourceBookService;
 import gray.light.owner.entity.ProjectDetails;
 import gray.light.owner.entity.ProjectStatus;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.apachecommons.CommonsLog;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
@@ -23,23 +27,28 @@ import java.util.function.Supplier;
  *
  * @author XyParaCrim
  */
-@CommonsLog
-public class UploadDocumentRepositoryJob extends QuartzJobBean {
+@Slf4j
+@RequiredArgsConstructor
+public class AutoUpdateBookJob implements Job {
 
     @Setter
     private Supplier<List<ProjectDetails>> initStatusProjectDetails;
 
-    @Setter
-    private BookService bookService;
+    private final WritableBookService writableBookService;
 
-    @Setter
-    private BookSourceService bookSourceService;
+    private final SourceBookService bookSourceService;
 
-    @Setter
-    private BookRepositoryCacheService bookRepositoryCacheService;
+    private final LocalCacheBookService localCacheBookService;
+
+    public static JobDataMap requiredDataMap(Supplier<List<ProjectDetails>> findSyncProject) {
+        JobDataMap dataMap = new JobDataMap();
+        dataMap.put("initStatusProjectDetails", findSyncProject);
+
+        return dataMap;
+    }
 
     @Override
-    protected void executeInternal(JobExecutionContext context) {
+    public void execute(JobExecutionContext context) {
 
         List<ProjectDetails> emptyDocument = initStatusProjectDetails.get();
 
@@ -64,7 +73,7 @@ public class UploadDocumentRepositoryJob extends QuartzJobBean {
      * @param emptyDocument 状态为空的文档
      */
     private BatchCloneRemoteRepositoryStep.Result batchCloneRemoteRepository(List<ProjectDetails> emptyDocument) {
-        BatchCloneRemoteRepositoryStep batchCloneRemoteRepository = new BatchCloneRemoteRepositoryStep(bookRepositoryCacheService);
+        BatchCloneRemoteRepositoryStep batchCloneRemoteRepository = new BatchCloneRemoteRepositoryStep(localCacheBookService);
 
         return batchCloneRemoteRepository.execute(emptyDocument);
     }
@@ -78,7 +87,7 @@ public class UploadDocumentRepositoryJob extends QuartzJobBean {
      * @return 文档仓库遍历的结果
      */
     private VisitDocumentRepositoryStep.Result batchWalkGitTree(List<ProjectDetails> emptyDocument) {
-        VisitDocumentRepositoryStep batchWalkGitTree = new VisitDocumentRepositoryStep(bookRepositoryCacheService);
+        VisitDocumentRepositoryStep batchWalkGitTree = new VisitDocumentRepositoryStep(localCacheBookService);
 
         return batchWalkGitTree.execute(emptyDocument);
     }
@@ -102,7 +111,7 @@ public class UploadDocumentRepositoryJob extends QuartzJobBean {
      * @param emptyDocument 文档
      */
     private void updateRepositories(List<DocumentRepositoryVisitor> visitors, List<ProjectDetails> emptyDocument) {
-        BatchUpdateDocumentRepositoriesStep updateRepositories = new BatchUpdateDocumentRepositoriesStep(bookService);
+        BatchUpdateDocumentRepositoriesStep updateRepositories = new BatchUpdateDocumentRepositoriesStep(writableBookService);
 
         updateRepositories.execute(visitors, emptyDocument);
     }
