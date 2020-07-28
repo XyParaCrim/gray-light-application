@@ -1,0 +1,4 @@
+gray/light/search/repository/BlogIndex.class
+gray/light/search/SearchConfiguration.class
+gray/light/search/repository/BlogIndex$BlogIndexBuilder.class
+gray/light/search/repository/BlogEsRepository.class

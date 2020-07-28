@@ -1,0 +1,11 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "gray.light.blog.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Description for gray.light.blog.enabled."
+    }
+  ],
+  "hints": []
+}

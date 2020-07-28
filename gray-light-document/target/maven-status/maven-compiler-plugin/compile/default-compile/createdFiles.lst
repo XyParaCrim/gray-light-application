@@ -1,0 +1,13 @@
+gray/light/document/entity/DocumentCatalogFolder.class
+gray/light/document/DocumentConfiguration.class
+gray/light/document/entity/Document.class
+gray/light/document/entity/DocumentCatalog$DocumentCatalogBuilder.class
+gray/light/document/builder/DocumentBuilder.class
+gray/light/document/repository/DocumentRepository.class
+gray/light/document/repository/DocumentCatalogsRepository.class
+gray/light/document/entity/Document$DocumentBuilder.class
+gray/light/document/repository/DocumentChapterRepository.class
+gray/light/document/entity/DocumentChapter$DocumentChapterBuilder.class
+gray/light/document/entity/DocumentChapter.class
+gray/light/document/entity/DocumentCatalog.class
+gray/light/document/entity/DocumentStatus.class

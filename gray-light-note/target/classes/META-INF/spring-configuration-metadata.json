@@ -1,0 +1,24 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "gray.light.note.check-update.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Description for gray.light.job.check-update.enabled.",
+      "defaultValue": true
+    },
+    {
+      "name": "gray.light.note.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Description for gray.light.job.check-update.enabled.",
+      "defaultValue": true
+    },
+    {
+      "name": "gray.light.note.upload-pending.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Description for gray.light.job.upload-pending.enabled.",
+      "defaultValue": true
+    }
+  ],
+  "hints": []
+}
