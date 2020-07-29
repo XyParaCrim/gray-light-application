@@ -11,6 +11,11 @@ import gray.light.note.service.WritableNoteService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Import;
 
+/**
+ * 配置笔记方面的路由等
+ *
+ * @author XyParaCrim
+ */
 @Import({
         NoteAutoConfiguration.ReadableNoteConfiguration.class,
         NoteAutoConfiguration.WritableNoteConfiguration.class

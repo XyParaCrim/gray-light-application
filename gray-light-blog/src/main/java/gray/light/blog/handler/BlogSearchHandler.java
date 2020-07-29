@@ -1,8 +1,8 @@
 package gray.light.blog.handler;
 
+import cache.StringChannelCache;
 import gray.light.blog.business.BlogBo;
 import gray.light.blog.service.SearchBlogService;
-import gray.light.search.cache.SearchScrollCache;
 import gray.light.support.web.RequestParam;
 import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.ScrollPageChunk;
@@ -32,7 +32,7 @@ public class BlogSearchHandler {
 
     private final SearchBlogService searchBlogService;
 
-    private final SearchScrollCache searchScrollCache;
+    private final StringChannelCache searchScrollCache;
 
     /**
      * 开始新搜索，若这个session持有scrollId，则会将旧的清除
@@ -49,7 +49,7 @@ public class BlogSearchHandler {
                     Page page = RequestParamTables.page().get(params);
                     ScrollPageChunk<BlogBo> hits = searchBlogService.search(searchWord, page);
 
-                    searchScrollCache.cacheScrollId(webSession.getId(), hits.getScrollId(), ids -> ids.forEach(searchBlogService::clearSearch));
+                    searchScrollCache.cache(webSession.getId(), hits.getScrollId(), ids -> ids.forEach(searchBlogService::clearSearch));
 
                     return allRightFromValue(hits);
                 });
@@ -70,7 +70,7 @@ public class BlogSearchHandler {
                     String scrollId = SCROLL_ID.get(params);
                     ScrollPageChunk<BlogBo> hits = searchBlogService.continueSearch(scrollId);
 
-                    searchScrollCache.cacheScrollId(webSession.getId(), hits.getScrollId(), ids -> ids.forEach(searchBlogService::clearSearch));
+                    searchScrollCache.cache(webSession.getId(), hits.getScrollId(), ids -> ids.forEach(searchBlogService::clearSearch));
 
                     return allRightFromValue(hits);
                 });
@@ -91,7 +91,7 @@ public class BlogSearchHandler {
                     String scrollId = SCROLL_ID.get(params);
 
                     searchBlogService.clearSearch(scrollId);
-                    searchScrollCache.clearScrollId(webSession.getId(), scrollId);
+                    searchScrollCache.remove(webSession.getId(), scrollId);
 
                     return allRight();
                 });

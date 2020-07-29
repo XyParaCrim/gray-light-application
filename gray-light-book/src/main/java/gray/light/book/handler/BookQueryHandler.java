@@ -28,7 +28,6 @@ public class BookQueryHandler {
 
     private final ReadableBookService readableBookService;
 
-
     /**
      * 查询文档仓库的结构树
      *

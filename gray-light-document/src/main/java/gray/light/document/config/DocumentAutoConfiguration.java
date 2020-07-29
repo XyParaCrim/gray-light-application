@@ -1,6 +1,6 @@
 package gray.light.document.config;
 
-import gray.light.book.config.BookAutoConfiguration;
+import gray.light.book.handler.BookQueryHandler;
 import gray.light.document.handler.WorksDocumentQueryHandler;
 import gray.light.document.handler.WorksDocumentUpdateHandler;
 import gray.light.document.router.PersonalDocumentBookRouter;
@@ -27,7 +27,7 @@ public class DocumentAutoConfiguration {
 
     public static final String MAPPER_PACKAGE = "gray.light.document.repository";
 
-    @ConditionalOnBean(BookAutoConfiguration.class)
+    @ConditionalOnBean(BookQueryHandler.class)
     @Import(PersonalDocumentBookRouter.class)
     public static class OptionalBookConfiguration {
 

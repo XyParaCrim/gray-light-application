@@ -1,5 +1,7 @@
 package gray.light.blog.config;
 
+import cache.RedisChannelCache;
+import cache.StringChannelCache;
 import floor.file.storage.FileStorage;
 import gray.light.blog.handler.BlogQueryHandler;
 import gray.light.blog.handler.BlogSearchHandler;
@@ -9,10 +11,11 @@ import gray.light.blog.router.PersonalBlogRouter;
 import gray.light.blog.router.PersonalSearchBlogRouter;
 import gray.light.blog.search.BlogSearchOptions;
 import gray.light.blog.service.*;
-import gray.light.search.cache.SearchScrollCache;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 博客相关的自动配置
@@ -44,13 +47,17 @@ public class BlogAutoConfiguration {
     }
 
     @Import({
-            SearchScrollCache.class,
             BlogSearchHandler.class,
             SearchBlogService.class,
             BlogSearchOptions.class,
             PersonalSearchBlogRouter.class
     })
     public static class SearchConfiguration {
+
+        @Bean
+        public StringChannelCache searchChannelCache(RedisTemplate<String, String> redisTemplate) {
+            return new RedisChannelCache(redisTemplate);
+        }
 
     }
 

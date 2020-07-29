@@ -1,7 +1,6 @@
 package gray.light.config;
 
-import floor.file.storage.annotation.FloorFileStorage;
-import floor.mybatis.plugins.annotation.FloorDefaultMybatisPlugins;
+import floor.persistent.plugins.annotation.FloorDefaultMybatisPlugins;
 import gray.light.blog.annotation.DomainBlog;
 import gray.light.book.annotation.HighDomainBook;
 import gray.light.document.annotation.DomainDocument;
@@ -31,11 +30,12 @@ public class ModuleDependenciesConfiguration {
     @AutoConfigureAfter(FloorComponentConfiguration.class)
     @RequiredArgsConstructor
 
+    @HighDomainBook
+
+    @DomainOwner
     @DomainBlog
     @DomainNote
-    @DomainOwner
     @DomainDocument
-    @HighDomainBook
     public static class GrayLightDomainConfiguration {
 
     }

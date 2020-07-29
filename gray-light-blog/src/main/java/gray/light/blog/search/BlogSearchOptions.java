@@ -1,8 +1,8 @@
 package gray.light.blog.search;
 
+import floor.search.SearchSupport;
 import gray.light.blog.indices.BlogIndex;
 import gray.light.blog.search.hits.BlogHit;
-import gray.light.search.SearchSupport;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.IndexOperations;
