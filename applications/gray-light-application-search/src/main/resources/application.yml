@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  session:
+    store-type: redis
+  quartz:
+    properties:
+      "org.quartz.threadPool.threadCount": "2"
+
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: gray.light.*.entity

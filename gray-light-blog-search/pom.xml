@@ -9,40 +9,27 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gray-light-blog</artifactId>
+    <artifactId>gray-light-blog-search</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-
-        <!-- perishing constraint -->
-
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>perishing-constraint-jdbc</artifactId>
-        </dependency>
-
-        <!-- floor components -->
-
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
-            <artifactId>floor-persistent</artifactId>
+            <artifactId>floor-search</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>floor-storage-file</artifactId>
+            <artifactId>gray-light-blog</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
-
-        <!-- gray light module -->
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-owner</artifactId>
+            <artifactId>floor-cache</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
     </dependencies>
 
 </project>

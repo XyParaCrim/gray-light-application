@@ -1,8 +1,8 @@
-package gray.light.blog.handler;
+package gray.light.blog.search.handler;
 
 import cache.StringChannelCache;
 import gray.light.blog.business.BlogBo;
-import gray.light.blog.service.SearchBlogService;
+import gray.light.blog.search.service.SearchBlogService;
 import gray.light.support.web.RequestParam;
 import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.ScrollPageChunk;

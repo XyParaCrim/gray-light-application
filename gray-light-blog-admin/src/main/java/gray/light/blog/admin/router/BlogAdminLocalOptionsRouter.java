@@ -4,7 +4,7 @@ import gray.light.blog.customizer.BlogCustomizer;
 import gray.light.blog.customizer.TagCustomizer;
 import gray.light.blog.entity.Blog;
 import gray.light.blog.entity.Tag;
-import gray.light.blog.indices.BlogIndex;
+import gray.light.blog.search.indices.BlogIndex;
 import gray.light.blog.search.BlogSearchOptions;
 import gray.light.blog.service.TagService;
 import gray.light.blog.service.WritableBlogService;

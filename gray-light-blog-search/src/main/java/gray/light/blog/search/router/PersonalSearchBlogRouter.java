@@ -1,6 +1,6 @@
-package gray.light.blog.router;
+package gray.light.blog.search.router;
 
-import gray.light.blog.handler.BlogSearchHandler;
+import gray.light.blog.search.handler.BlogSearchHandler;
 import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.RequestSupport;
 import lombok.RequiredArgsConstructor;

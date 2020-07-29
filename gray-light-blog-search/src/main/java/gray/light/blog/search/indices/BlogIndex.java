@@ -1,4 +1,4 @@
-package gray.light.blog.indices;
+package gray.light.blog.search.indices;
 
 import lombok.Builder;
 import lombok.Data;

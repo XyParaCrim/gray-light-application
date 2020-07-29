@@ -1,4 +1,6 @@
 spring:
+  applcation:
+    name: gray-light-all
   cloud:
     zookeeper:
       enabled: false

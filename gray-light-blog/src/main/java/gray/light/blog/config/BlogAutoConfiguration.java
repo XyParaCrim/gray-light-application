@@ -1,21 +1,17 @@
 package gray.light.blog.config;
 
-import cache.RedisChannelCache;
-import cache.StringChannelCache;
 import floor.file.storage.FileStorage;
 import gray.light.blog.handler.BlogQueryHandler;
-import gray.light.blog.handler.BlogSearchHandler;
 import gray.light.blog.handler.BlogUpdateHandler;
 import gray.light.blog.handler.TagHandler;
 import gray.light.blog.router.PersonalBlogRouter;
-import gray.light.blog.router.PersonalSearchBlogRouter;
-import gray.light.blog.search.BlogSearchOptions;
-import gray.light.blog.service.*;
+import gray.light.blog.service.BlogSourceService;
+import gray.light.blog.service.ReadableBlogService;
+import gray.light.blog.service.TagService;
+import gray.light.blog.service.WritableBlogService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 博客相关的自动配置
@@ -28,8 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
         TagHandler.class,
         ReadableBlogService.class,
         TagService.class,
-        BlogAutoConfiguration.WritableConfiguration.class,
-        BlogAutoConfiguration.SearchConfiguration.class
+        BlogAutoConfiguration.WritableConfiguration.class
 })
 @MapperScan(BlogAutoConfiguration.MAPPER_PACKAGE)
 public class BlogAutoConfiguration {
@@ -43,21 +38,6 @@ public class BlogAutoConfiguration {
     })
     @ConditionalOnBean(FileStorage.class)
     public static class WritableConfiguration {
-
-    }
-
-    @Import({
-            BlogSearchHandler.class,
-            SearchBlogService.class,
-            BlogSearchOptions.class,
-            PersonalSearchBlogRouter.class
-    })
-    public static class SearchConfiguration {
-
-        @Bean
-        public StringChannelCache searchChannelCache(RedisTemplate<String, String> redisTemplate) {
-            return new RedisChannelCache(redisTemplate);
-        }
 
     }
 

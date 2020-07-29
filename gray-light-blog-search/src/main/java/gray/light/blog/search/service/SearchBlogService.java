@@ -1,8 +1,9 @@
-package gray.light.blog.service;
+package gray.light.blog.search.service;
 
 import gray.light.blog.business.BlogBo;
-import gray.light.blog.search.BlogSearchOptions;
-import gray.light.blog.search.hits.BlogHit;
+import gray.light.blog.search.hit.BlogHit;
+import gray.light.blog.search.options.BlogSearchOptions;
+import gray.light.blog.service.ReadableBlogService;
 import gray.light.support.web.ScrollPageChunk;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.elasticsearch.core.SearchScrollHits;

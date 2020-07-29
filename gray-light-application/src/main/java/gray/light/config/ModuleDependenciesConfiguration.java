@@ -28,7 +28,6 @@ public class ModuleDependenciesConfiguration {
 
     @Configuration
     @AutoConfigureAfter(FloorComponentConfiguration.class)
-    @RequiredArgsConstructor
 
     @HighDomainBook
 

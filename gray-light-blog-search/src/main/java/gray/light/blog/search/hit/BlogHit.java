@@ -1,4 +1,4 @@
-package gray.light.blog.search.hits;
+package gray.light.blog.search.hit;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
