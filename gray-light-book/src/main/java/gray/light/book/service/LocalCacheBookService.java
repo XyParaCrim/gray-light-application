@@ -30,11 +30,11 @@ public class LocalCacheBookService {
      * 更新本地仓库。若长时间未获得操作权，则不修改文档状态，
      * 若在更新期间发生异常，则将文档状态修改为{@code DocumentStatus.INVALID}
      *
-     * @param document 指定文档
+     * @param projectDetails 指定文档
      * @throws InterruptedException 当获取操作许可时，发生中断
      */
-    public void updateRepository(@NonNull ProjectDetails document) throws InterruptedException {
-        RepositoryOptions<Long, Long> options = repositoryDatabase.repositoryOptions(document.getOriginId());
+    public void updateRepository(@NonNull ProjectDetails projectDetails) throws InterruptedException {
+        RepositoryOptions<Long, Long> options = repositoryDatabase.repositoryOptions(projectDetails.getOriginId());
 
         Optional<Long> writeStamp = options.writePermission();
         if (writeStamp.isPresent()) {
@@ -43,20 +43,34 @@ public class LocalCacheBookService {
 
                 if (options.hasUpdate()) {
                     options.updateLocal();
-                    document.setStatus(ProjectStatus.PENDING);
-                } else if (StringUtils.hasLength(document.getVersion()) &&
-                        !options.equalsVersion(document.getVersion())) {
-                    document.setStatus(ProjectStatus.PENDING);
+                    projectDetails.setStatus(ProjectStatus.PENDING);
+                } else if (StringUtils.hasLength(projectDetails.getVersion()) &&
+                        !options.equalsVersion(projectDetails.getVersion())) {
+                    projectDetails.setStatus(ProjectStatus.PENDING);
                 }
             } catch (GitAPIException | IOException e) {
-                document.setStatus(ProjectStatus.INVALID);
-
-                log.error("Cannot update the repository: " + document.getOriginId(), e);
+                failureCache(projectDetails);
+                log.error("Cannot update the repository: " + projectDetails.getOriginId(), e);
             } finally {
                 options.cancelWritePermission(writeStamp.get());
             }
         } else {
             log.warn("Skip repository update since write permission is occupied");
+        }
+    }
+
+    /**
+     * 在一次fetch项目更新失败后，重新设置状态。若之前的状态为{@link ProjectStatus#WAIT_PERSISTENCE}时，
+     * 需要将他设为{@link ProjectStatus#RETRY_PERSISTENCE}，其他为{@link ProjectStatus#FAILURE_CHECK}。
+     * 目的是为了区别之前的版本是否可用
+     *
+     * @param projectDetails 项目详细
+     */
+    private void failureCache(ProjectDetails projectDetails) {
+        if (projectDetails.getStatus() == ProjectStatus.WAIT_PERSISTENCE) {
+            projectDetails.setStatus(ProjectStatus.RETRY_PERSISTENCE);
+        } else {
+            projectDetails.setStatus(ProjectStatus.FAILURE_CHECK);
         }
     }
 

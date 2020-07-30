@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: book-scheduler
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    zookeeper:
+      discovery:
+        root: /services/gray-light
+        register: false
+      dependencies:
+        query-service:
+          path: /services/gray-light/query-service
+          required: true
+
+  quartz:
+    properties:
+      "org.quartz.threadPool.threadCount": "2"

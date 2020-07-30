@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    zookeeper:
+      connect-string: ${ZOOKEEP_CLUSTER}
+      config:
+        enabled: false
+        root: config/gray-light
+        watcher:
+          enabled: false

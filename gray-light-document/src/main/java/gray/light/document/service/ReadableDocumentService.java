@@ -49,7 +49,7 @@ public class ReadableDocumentService {
      * @return 获取所有状态为初始化的项目
      */
     public List<ProjectDetails> findInitProject() {
-        return worksDocumentRepository.findProjectDetailsByStatus(ProjectStatus.INIT, Page.unlimited().nullable());
+        return worksDocumentRepository.findProjectDetailsByStatus(ProjectStatus.WAIT_PERSISTENCE, Page.unlimited().nullable());
     }
 
     /**

@@ -62,7 +62,7 @@ public class ReadableNoteService {
      * @return 查询指定同步note的项目详细
      */
     public List<ProjectDetails> findInitProjectDetails() {
-        return projectDetailsService.findScopeProjectDetails(ProjectStatus.INIT, Scope.NOTE, Page.unlimited().nullable());
+        return projectDetailsService.findScopeProjectDetails(ProjectStatus.WAIT_PERSISTENCE, Scope.NOTE, Page.unlimited().nullable());
     }
 
 }

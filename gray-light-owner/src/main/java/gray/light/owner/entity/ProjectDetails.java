@@ -32,7 +32,7 @@ public class ProjectDetails {
     private Date updatedDate;
 
     @Builder.Default
-    private ProjectStatus status = ProjectStatus.INIT;
+    private ProjectStatus status = ProjectStatus.WAIT_PERSISTENCE;
 
     @Builder.Default
     private ProjectStructure structure = ProjectStructure.UNKNOWN;

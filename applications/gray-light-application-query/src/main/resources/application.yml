@@ -2,11 +2,21 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: query-service
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    zookeeper:
+      discovery:
+        root: /services/gray-light
   session:
     store-type: redis
   quartz:
     properties:
       "org.quartz.threadPool.threadCount": "2"
+    auto-startup: false
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml

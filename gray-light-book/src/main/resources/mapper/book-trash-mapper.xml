@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gray.light.book.repository.BookTrash">
+    <insert id="push"
+            parameterType="long">
+        insert into book_trash (uid, download_link)
+        select bt.uid,
+               bt.download_link
+        from book_chapter bt
+        where bt.owner_project_id = #{projectId};
+
+        delete from book_catalog bc where bc.owner_project_id = #{projectId}
+    </insert>
+</mapper>

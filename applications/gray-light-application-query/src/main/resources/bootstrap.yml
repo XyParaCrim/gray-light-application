@@ -5,6 +5,4 @@ spring:
       config:
         root: config/gray-light
         watcher:
-          enabled: false
-  application:
-    name: query-service
+          enabled: true

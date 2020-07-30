@@ -9,14 +9,14 @@ package gray.light.owner.entity;
 public enum ProjectStatus {
 
     /**
-     * 仓库无效状态，可能在上传是发生了错误
+     * 等待持久化，即数据只有项目信息，没有结构信息及其文件数据
      */
-    INVALID,
+    WAIT_PERSISTENCE,
 
     /**
-     * 仓库此时为空，即只更新了信息，未上传文档文件
+     * 无法获取更新信息，但是是从WAIT_PERSISTENCE的状态来的，说明之前的版本依然不可用
      */
-    INIT,
+    RETRY_PERSISTENCE,
 
     /**
      * 仓库已经上传到文件服务器
@@ -24,12 +24,19 @@ public enum ProjectStatus {
     SYNC,
 
     /**
-     * 有新的更新需要同步
+     * 有新的更新需要同步，但是此时的版本也是可用的
      */
     PENDING,
 
     /**
-     * 标记为删除
+     * 无法获取更新信息，可能因为Git服务没有了，又或者本地文件系统无法缓存，但是之前的版本
+     * 完全可用
      */
-    UNAVAILABLE
+    FAILURE_CHECK,
+
+
+    /**
+     * 仓库无效状态，可能在上传是发生了错误
+     */
+    INVALID,
 }
