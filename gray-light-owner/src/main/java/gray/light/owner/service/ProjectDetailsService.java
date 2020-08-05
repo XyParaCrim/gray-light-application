@@ -73,4 +73,14 @@ public class ProjectDetailsService {
         return projectDetailsRepository.findByStatusAndScopeAndType(status, scope.getName(), ProjectDetailsCustomizer.OWNER_TYPE, page.nullable());
     }
 
+    /**
+     * 查询指定状态的项目详细
+     *
+     * @param projectStatuses 查询的项目状态
+     * @return 指定状态的项目详细
+     */
+    public List<ProjectDetails> findProjectDetailsByStatsList(List<ProjectStatus> projectStatuses) {
+        return projectDetailsRepository.findByStatusList(projectStatuses);
+    }
+
 }

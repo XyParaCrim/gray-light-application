@@ -7,6 +7,16 @@
         </if>
     </sql>
 
+    <sql id="projectDetailsAllFields">
+        ${table}.http,
+        ${table}.version,
+        ${table}.created_date,
+        ${table}.updated_date,
+        ${table}.status,
+        ${table}.structure
+    </sql>
+
+
     <insert id="save"
             parameterType="ProjectDetails"
             keyProperty="originId,type">
@@ -49,6 +59,24 @@
                #{doc.version}  as version
     </foreach>) b
             using (origin_id, type)
-            set d.status = b.status, d.version = b.version
+            set d.status  = b.status,
+                d.version = b.version
     </update>
+
+    <select id="findByStatusList"
+            resultType="ProjectDetails">
+        select pd.origin_id,
+               pd.type,
+               pd.http,
+               pd.version,
+               pd.created_date,
+               pd.updated_date,
+               pd.status,
+               pd.structure
+        from project_details pd
+        where pd.status in
+            <foreach collection="statusList" item="status" index="i" separator="," open="(" close=")">
+                #{status}
+            </foreach>
+    </select>
 </mapper>

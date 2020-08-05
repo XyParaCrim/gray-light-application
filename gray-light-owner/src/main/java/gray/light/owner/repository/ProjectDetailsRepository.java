@@ -32,4 +32,6 @@ public interface ProjectDetailsRepository {
                                                      @Param("scope") String scope,
                                                      @Param("type") String type,
                                                      @Param("page") Page page);
+
+    List<ProjectDetails> findByStatusList(@Param("statusList") List<ProjectStatus> statusList);
 }

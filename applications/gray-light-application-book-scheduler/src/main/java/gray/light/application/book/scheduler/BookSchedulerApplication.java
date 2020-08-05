@@ -1,13 +1,12 @@
 package gray.light.application.book.scheduler;
 
-import gray.lighjt.document.scheduler.annotation.JobCheckDocument;
-import org.springframework.amqp.core.AmqpTemplate;
+//import gray.lighjt.document.scheduler.annotation.JobCheckDocument;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@JobCheckDocument
-@EnableFeignClients
+// @JobCheckDocument
+// @EnableFeignClients
 @SpringBootApplication
 public class BookSchedulerApplication {
 

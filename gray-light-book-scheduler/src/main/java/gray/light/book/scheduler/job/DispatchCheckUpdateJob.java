@@ -1,110 +1,90 @@
 package gray.light.book.scheduler.job;
 
 import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.entity.ProjectStatus;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
-import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
-import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.AmqpTemplate;
 
-import java.util.Arrays;
+import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Function;
 
 /**
- * 分发需要检测更新仓库任务
+ * 使用amqp分发更新任务，zookeeper标记更新轮次
  *
  * @author XyParaCrim
  */
 @Slf4j
 @RequiredArgsConstructor
-public class DispatchCheckUpdateJob implements Job {
+public class DispatchCheckUpdateJob extends AbstractDispatchCheckUpdateJob {
 
-    private static final String CHECK_ROUND_KEY = "check_round_key";
+    private static final String DEFAULT_PARENT_PATH_KEY = "/schedule";
 
-    private static final String SKIP_COUNT_KEY = "skip_count";
+    private static final String DEFAULT_ROUTER_KEY = "check-task";
 
     private static final String PARENT_PATH_KEY = "parent_path_key";
 
-    private final CuratorFramework client;
-
-    private final AmqpAdmin amqpAdmin;
+    private static final String ROUTER_KEY = "dispatch_job_key";
 
     private final AmqpTemplate amqpTemplate;
 
-    @Setter
-    private Function<List<ProjectStatus>, List<ProjectDetails>> fetchDetails;
+    private final CuratorFramework client;
 
     @Override
-    public void execute(JobExecutionContext context) {
-        if (processLastRound(context)) {
-            List<ProjectDetails> projectDetails = fetchDetails.
-                    apply(Arrays.asList(ProjectStatus.SYNC, ProjectStatus.FAILURE_CHECK));
-
-            UUID nextRound;
-            try {
-                nextRound = signNextRound((String) context.get(PARENT_PATH_KEY));
-            } catch (Exception e) {
-                log.error("Failed to sign next round to zookeeper: {}",
-                        client.getZookeeperClient().getCurrentConnectionString(), e);
-
-                return;
-            }
-
-            // 发生消息
-            // projectDetails.forEach(amqpTemplate::convertAndSend);
-            // 发送毒药
-        }
-    }
-
-    private boolean processLastRound(JobExecutionContext context) {
-        UUID roundId = (UUID) context.get(CHECK_ROUND_KEY);
-        if (roundId == null) {
-            return true;
-        }
-
-        String zPath = PARENT_PATH_KEY + "/" + roundId.toString();
-        boolean completed = false;
-
-        try {
-            completed = doneLastRound(zPath);
-        } catch (Exception e) {
-            log.error("Failed to check update sign of last round: {}", zPath, e);
-        }
-
-        if (completed) {
-            resetRound(context);
-            return true;
-        } else {
-            skipRound(context);
-            return false;
-        }
-    }
-
-    private void resetRound(JobExecutionContext context) {
-        context.put(CHECK_ROUND_KEY, null);
-        context.put(SKIP_COUNT_KEY, 0);
-    }
-
-    private void skipRound(JobExecutionContext context) {
-        Integer count = (Integer) context.get(SKIP_COUNT_KEY);
-        context.put(SKIP_COUNT_KEY, count == null ? 1 : count + 1);
-    }
-
-    private boolean doneLastRound(String path) throws Exception {
-        return client.checkExists().forPath(path) == null;
-    }
-
-    private UUID signNextRound(String parentPath) throws Exception {
+    protected Optional<UUID> signNextRound(JobExecutionContext context) {
         UUID nextRoundSign = UUID.randomUUID();
-        client.create().creatingParentContainersIfNeeded().forPath(parentPath + "/" + nextRoundSign.toString());
+        try {
+            client.create().creatingParentContainersIfNeeded().forPath(parentPath(context) + "/" + nextRoundSign.toString());
+        } catch (Exception e) {
+            log.error("Failed to sign next round to zookeeper: {}",
+                    client.getZookeeperClient().getCurrentConnectionString(), e);
 
-        return nextRoundSign;
+            return Optional.empty();
+        }
+
+        return Optional.of(nextRoundSign);
     }
 
+    @Override
+    protected void dispatch(List<ProjectDetails> details, UUID nextUuid, JobExecutionContext context) {
+        // TODO: 发生消息考虑不使用序列化，直接发送JSON，只发送关键信息
+        amqpTemplate.convertAndSend(routeKey(context), details);
+    }
+
+    @Override
+    protected boolean doneLastRound(UUID roundId, JobExecutionContext context) throws Exception {
+        String zPath = parentPath(context) + "/" + roundId.toString();
+
+        return client.checkExists().forPath(zPath) == null;
+    }
+
+    private String parentPath(JobExecutionContext context) {
+        return getOrDefault(getFromContext(PARENT_PATH_KEY, context), DEFAULT_PARENT_PATH_KEY);
+    }
+
+    private String routeKey(JobExecutionContext context) {
+        return getOrDefault(getFromContext(ROUTER_KEY, context), DEFAULT_ROUTER_KEY);
+    }
+
+    private String getOrDefault(String setting, String defaultString) {
+        return setting == null ? defaultString : setting;
+    }
+
+    /**
+     * 返回该任务需要数据映射表
+     *
+     * @param fetcher 获取项目详细的函数
+     * @return 返回该任务需要数据映射表
+     */
+    public static JobDataMap requiredDataMap(FetchProjectDetailsByStatus fetcher) {
+        JobDataMap dataMap = AbstractDispatchCheckUpdateJob.requiredDataMap(fetcher);
+        dataMap.put(PARENT_PATH_KEY, new ValueSlot<String>());
+        dataMap.put(ROUTER_KEY, new ValueSlot<String>());
+
+        return  dataMap;
+    }
 }

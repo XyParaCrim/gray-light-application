@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,9 @@ import java.util.Date;
 @Alias("ProjectDetails")
 @Builder
 @AllArgsConstructor
-public class ProjectDetails {
+public class ProjectDetails implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long originId;
 
