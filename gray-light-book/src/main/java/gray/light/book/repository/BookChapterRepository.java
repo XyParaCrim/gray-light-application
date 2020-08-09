@@ -15,4 +15,5 @@ public interface BookChapterRepository {
     boolean batchSave(@Param("chapters") List<BookChapter> chapters);
 
     boolean deleteByOwnerProjectId(@Param("ownerProjectId") Long ownerProjectId);
+
 }

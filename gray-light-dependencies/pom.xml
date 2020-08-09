@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>org.excellent-cancer</groupId>
+        <artifactId>floor-library</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>gray-light-dependencies</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <gray.light.support>1.0-SNAPSHOT</gray.light.support>
+        <gray.light.definition>1.0-SNAPSHOT</gray.light.definition>
+        <gray.light.owner>1.0-SNAPSHOT</gray.light.owner>
+        <gray.light.blog>1.0-SNAPSHOT</gray.light.blog>
+        <gray.light.blog.admin>1.0-SNAPSHOT</gray.light.blog.admin>
+        <gray.light.blog.scheduler>1.0-SNAPSHOT</gray.light.blog.scheduler>
+        <gray.light.blog.search>1.0-SNAPSHOT</gray.light.blog.search>
+        <gray.light.source>1.0-SNAPSHOT</gray.light.source>
+        <gray.light.book>1.0-SNAPSHOT</gray.light.book>
+        <gray.light.book.scheduler>1.0-SNAPSHOT</gray.light.book.scheduler>
+        <gray.light.document>1.0-SNAPSHOT</gray.light.document>
+        <gray.light.document.scheduler>1.0-SNAPSHOT</gray.light.document.scheduler>
+        <gray.light.note>1.0-SNAPSHOT</gray.light.note>
+        <gray.light.note.scheduler>1.0-SNAPSHOT</gray.light.note.scheduler>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-support</artifactId>
+                <version>${gray.light.support}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-definition</artifactId>
+                <version>${gray.light.definition}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-owner</artifactId>
+                <version>${gray.light.owner}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-blog</artifactId>
+                <version>${gray.light.blog}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-blog-admin</artifactId>
+                <version>${gray.light.blog.admin}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-blog-scheduler</artifactId>
+                <version>${gray.light.blog.scheduler}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-blog-search</artifactId>
+                <version>${gray.light.blog.search}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-source</artifactId>
+                <version>${gray.light.source}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-book</artifactId>
+                <version>${gray.light.book}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-book-scheduler</artifactId>
+                <version>${gray.light.book.scheduler}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-document</artifactId>
+                <version>${gray.light.document}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-document-scheduler</artifactId>
+                <version>${gray.light.document.scheduler}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-note</artifactId>
+                <version>${gray.light.note}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-note-scheduler</artifactId>
+                <version>${gray.light.note.scheduler}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
