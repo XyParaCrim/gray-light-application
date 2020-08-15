@@ -1,6 +1,6 @@
 package gray.light.blog.search.handler;
 
-import cache.StringChannelCache;
+import floor.cache.StringChannelCache;
 import gray.light.blog.business.BlogBo;
 import gray.light.blog.search.service.SearchBlogService;
 import gray.light.support.web.RequestParam;

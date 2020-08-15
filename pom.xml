@@ -12,10 +12,10 @@
     </parent>
 
     <artifactId>gray-light-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>4.0.0</version>
 
     <properties>
-        <gray.light.dependencies>1.0-SNAPSHOT</gray.light.dependencies>
+        <gray.light.dependencies>4.0.0</gray.light.dependencies>
     </properties>
 
     <modules>
@@ -34,6 +34,7 @@
         <module>gray-light-document-scheduler</module>
         <module>gray-light-note</module>
         <module>gray-light-note-scheduler</module>
+        <module>gray-light-stream-book-source</module>
     </modules>
 
     <dependencyManagement>
@@ -56,6 +57,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

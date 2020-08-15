@@ -1,7 +1,7 @@
 package gray.light.blog.search.config;
 
-import cache.RedisChannelCache;
-import cache.StringChannelCache;
+import floor.cache.RedisChannelCache;
+import floor.cache.StringChannelCache;
 import gray.light.blog.search.handler.BlogSearchHandler;
 import gray.light.blog.search.options.BlogSearchOptions;
 import gray.light.blog.search.router.PersonalSearchBlogRouter;

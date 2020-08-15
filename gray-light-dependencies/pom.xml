@@ -7,28 +7,28 @@
     <parent>
         <groupId>org.excellent-cancer</groupId>
         <artifactId>floor-library</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath/>
+        <version>2.0.0</version>
+        <relativePath>../../../Floor Library/pom.xml</relativePath>
     </parent>
 
     <artifactId>gray-light-dependencies</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>4.0.0</version>
 
     <properties>
-        <gray.light.support>1.0-SNAPSHOT</gray.light.support>
-        <gray.light.definition>1.0-SNAPSHOT</gray.light.definition>
-        <gray.light.owner>1.0-SNAPSHOT</gray.light.owner>
-        <gray.light.blog>1.0-SNAPSHOT</gray.light.blog>
-        <gray.light.blog.admin>1.0-SNAPSHOT</gray.light.blog.admin>
-        <gray.light.blog.scheduler>1.0-SNAPSHOT</gray.light.blog.scheduler>
-        <gray.light.blog.search>1.0-SNAPSHOT</gray.light.blog.search>
-        <gray.light.source>1.0-SNAPSHOT</gray.light.source>
-        <gray.light.book>1.0-SNAPSHOT</gray.light.book>
-        <gray.light.book.scheduler>1.0-SNAPSHOT</gray.light.book.scheduler>
-        <gray.light.document>1.0-SNAPSHOT</gray.light.document>
-        <gray.light.document.scheduler>1.0-SNAPSHOT</gray.light.document.scheduler>
-        <gray.light.note>1.0-SNAPSHOT</gray.light.note>
-        <gray.light.note.scheduler>1.0-SNAPSHOT</gray.light.note.scheduler>
+        <gray.light.support>4.0.0</gray.light.support>
+        <gray.light.definition>4.0.0</gray.light.definition>
+        <gray.light.owner>4.0.0</gray.light.owner>
+        <gray.light.blog>4.0.0</gray.light.blog>
+        <gray.light.blog.admin>4.0.0</gray.light.blog.admin>
+        <gray.light.blog.scheduler>4.0.0</gray.light.blog.scheduler>
+        <gray.light.blog.search>4.0.0</gray.light.blog.search>
+        <gray.light.source>4.0.0</gray.light.source>
+        <gray.light.book>4.0.0</gray.light.book>
+        <gray.light.book.scheduler>4.0.0</gray.light.book.scheduler>
+        <gray.light.document>4.0.0</gray.light.document>
+        <gray.light.document.scheduler>4.0.0</gray.light.document.scheduler>
+        <gray.light.note>4.0.0</gray.light.note>
+        <gray.light.note.scheduler>4.0.0</gray.light.note.scheduler>
     </properties>
 
     <dependencyManagement>
