@@ -4,11 +4,11 @@ import gray.light.definition.entity.Scope;
 import gray.light.document.business.DocumentBo;
 import gray.light.document.business.DocumentFo;
 import gray.light.document.service.WritableDocumentService;
-import gray.light.owner.definition.customizer.OwnerProjectCustomizer;
-import gray.light.owner.definition.customizer.ProjectDetailsCustomizer;
-import gray.light.owner.definition.entity.OwnerProject;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.service.OverallOwnerService;
+import gray.light.owner.customizer.OwnerProjectCustomizer;
+import gray.light.owner.customizer.ProjectDetailsCustomizer;
+import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.service.ReadableOwnerProjectService;
 import gray.light.support.error.NormalizingFormException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class WorksDocumentUpdateHandler {
 
     private final WritableDocumentService writableDocumentService;
 
-    private final OverallOwnerService overallOwnerService;
+    private final ReadableOwnerProjectService readableOwnerProjectService;
 
     /**
      * 根据请求表单，为所属者的项目添加一个文档
@@ -69,7 +69,7 @@ public class WorksDocumentUpdateHandler {
                 flatMap(
                         success -> {
                             if (success) {
-                                Optional<OwnerProject> savedProject = overallOwnerService.findProject(documentProject.getId());
+                                Optional<OwnerProject> savedProject = readableOwnerProjectService.findProject(documentProject.getId());
                                 if (savedProject.isPresent()) {
                                     return allRightFromValue(DocumentBo.of(savedProject.get(), worksId));
                                 }

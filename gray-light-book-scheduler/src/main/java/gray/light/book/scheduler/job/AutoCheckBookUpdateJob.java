@@ -2,8 +2,8 @@ package gray.light.book.scheduler.job;
 
 import gray.light.book.entity.BookChapter;
 import gray.light.book.service.*;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.service.ProjectDetailsService;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.service.WritableProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class AutoCheckBookUpdateJob implements Job {
 
     private final TrashBookService trashBookService;
 
-    private final ProjectDetailsService projectDetailsService;
+    private final WritableProjectDetailsService writableProjectDetailsService;
 
     private final LocalCacheBookService localCacheBookService;
 
@@ -109,7 +109,7 @@ public class AutoCheckBookUpdateJob implements Job {
             // details.setStatus(ProjectStatus.INIT);
         }
 
-        projectDetailsService.batchUpdateStatusAndVersion(pendingDetails);
+        writableProjectDetailsService.batchUpdateStatusAndVersion(pendingDetails);
     }
 
     public static JobDataMap requiredDataMap(Supplier<List<ProjectDetails>> syncStatusProjectDetails) {

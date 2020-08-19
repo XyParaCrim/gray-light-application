@@ -6,7 +6,7 @@
     <parent>
         <artifactId>gray-light-core</artifactId>
         <groupId>org.excellent-cancer</groupId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
     </parent>
 
     <artifactId>gray-light-blog</artifactId>
@@ -24,11 +24,6 @@
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>floor-persistent</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
             <artifactId>floor-storage-file</artifactId>
         </dependency>
 
@@ -36,7 +31,7 @@
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-owner</artifactId>
+            <artifactId>gray-light-blog-definition</artifactId>
         </dependency>
 
     </dependencies>

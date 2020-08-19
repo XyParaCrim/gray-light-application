@@ -2,7 +2,7 @@ package gray.light.document.handler;
 
 import gray.light.definition.entity.Scope;
 import gray.light.document.service.ReadableDocumentService;
-import gray.light.owner.service.OverallOwnerService;
+import gray.light.owner.service.ReadableOwnerProjectService;
 import gray.light.support.web.RequestParamTables;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import static gray.light.support.web.ResponseToClient.allRightFromValue;
 @RequiredArgsConstructor
 public class WorksDocumentQueryHandler {
 
-    private final OverallOwnerService overallOwnerService;
+    private final ReadableOwnerProjectService readableOwnerProjectService;
 
     private final ReadableDocumentService readableDocumentService;
 
@@ -37,7 +37,7 @@ public class WorksDocumentQueryHandler {
         Long ownerId = RequestParamTables.ownerId().get(variables);
 
 
-        return allRightFromValue(overallOwnerService.projects(ownerId, Scope.DOCUMENT, page));
+        return allRightFromValue(readableOwnerProjectService.projects(ownerId, Scope.DOCUMENT, page));
     }
 
     /**

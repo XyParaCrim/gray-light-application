@@ -1,9 +1,9 @@
 package gray.light.owner.service;
 
-import gray.light.owner.definition.entity.Privilege;
+import gray.light.owner.entity.Privilege;
 import gray.light.support.component.GlobalFinalVariables;
-import gray.light.owner.definition.entity.Owner;
-import gray.light.owner.definition.error.UniqueOwnerException;
+import gray.light.owner.entity.Owner;
+import gray.light.owner.error.UniqueOwnerException;
 import gray.light.owner.repository.OwnerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;

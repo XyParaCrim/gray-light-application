@@ -1,7 +1,7 @@
 package gray.light.document.business;
 
-import gray.light.owner.definition.business.OwnerProjectFo;
-import gray.light.owner.definition.business.ProjectDetailsFo;
+import gray.light.owner.business.OwnerProjectFo;
+import gray.light.owner.business.ProjectDetailsFo;
 import gray.light.support.error.NormalizingFormException;
 import lombok.Data;
 

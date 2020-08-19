@@ -4,8 +4,8 @@ import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookChapter;
 import gray.light.book.repository.BookCatalogRepository;
 import gray.light.book.repository.BookChapterRepository;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.service.ProjectDetailsService;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.service.WritableProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class WritableBookService {
 
     private final BookChapterRepository bookChapterRepository;
 
-    private final ProjectDetailsService projectDetailsService;
+    private final WritableProjectDetailsService writableProjectDetailsService;
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -52,7 +52,7 @@ public class WritableBookService {
             return true;
         }
 
-        if (!projectDetailsService.batchUpdateStatusAndVersion(projectDetails)) {
+        if (!writableProjectDetailsService.batchUpdateStatusAndVersion(projectDetails)) {
             return false;
         }
 

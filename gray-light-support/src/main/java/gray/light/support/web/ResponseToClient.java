@@ -1,9 +1,12 @@
 package gray.light.support.web;
 
+import gray.light.support.error.KnownBusinessException;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.web.ResponseCode;
 import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 
 /**
  * 封装回复客户端常用和需要的功能
@@ -34,6 +37,10 @@ public final class ResponseToClient {
 
     public static Mono<ServerResponse> badRequestCauseMissingParameter(String parameterName) {
         return assemblyResponse(ServerResponse.badRequest(), error("Missing parameter: " + parameterName));
+    }
+
+    public static Mono<ServerResponse> fromKnownException(KnownBusinessException e) {
+        return assemblyResponse(ServerResponse.badRequest(), Objects.requireNonNull(e).toResponseFormat());
     }
 
     private static Mono<ServerResponse> assemblyResponse(ServerResponse.BodyBuilder body, ResponseFormat response) {

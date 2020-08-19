@@ -2,8 +2,8 @@ package gray.light.book.scheduler.step;
 
 import gray.light.book.DocumentRepositoryVisitor;
 import gray.light.book.service.LocalCacheBookService;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.definition.entity.ProjectStatus;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.entity.ProjectStatus;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

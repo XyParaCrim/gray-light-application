@@ -9,6 +9,11 @@ import perishing.constraint.jdbc.Page;
 
 import java.util.List;
 
+/**
+ * 标签持久化数据访问接口
+ *
+ * @author XyParaCrim
+ */
 @Mapper
 public interface TagRepository {
 

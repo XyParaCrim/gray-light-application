@@ -3,12 +3,14 @@ package gray.light.blog.service;
 import gray.light.blog.business.BlogBo;
 import gray.light.blog.entity.Blog;
 import gray.light.blog.entity.TagWithBlogId;
+import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@UtilityClass
 class BlogUtils {
 
     static List<BlogBo> assemblyBlogAndTag(List<Blog> blogs, List<TagWithBlogId> tags) {

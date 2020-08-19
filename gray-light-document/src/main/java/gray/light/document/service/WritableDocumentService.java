@@ -4,9 +4,9 @@ import gray.light.definition.entity.Scope;
 import gray.light.document.customizer.WorksDocumentCustomizer;
 import gray.light.document.entity.WorksDocument;
 import gray.light.document.repository.WorksDocumentRepository;
-import gray.light.owner.definition.entity.OwnerProject;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.service.ProjectDetailsService;
+import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.service.WritableProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class WritableDocumentService {
 
     private final WorksDocumentRepository worksDocumentRepository;
 
-    private final ProjectDetailsService projectDetailsService;
+    private final WritableProjectDetailsService writableProjectDetailsService;
 
     /**
      * 为works添加新文档，仅更新数据库
@@ -34,7 +34,7 @@ public class WritableDocumentService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addDocumentToWorks(Long projectId, OwnerProject documentOwnerProject, ProjectDetails uncommited) {
-        if (projectDetailsService.addBookProjectDetailsSafely(documentOwnerProject, Scope.DOCUMENT, uncommited)) {
+        if (writableProjectDetailsService.addBookProjectDetailsSafely(documentOwnerProject, Scope.DOCUMENT, uncommited)) {
 
             WorksDocument document = WorksDocumentCustomizer.generate(documentOwnerProject, projectId);
             if (worksDocumentRepository.save(document)) {

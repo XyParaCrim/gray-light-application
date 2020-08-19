@@ -4,7 +4,7 @@ import gray.light.book.customizer.BookCatalogCustomizer;
 import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookCatalogFolder;
 import gray.light.book.entity.BookChapter;
-import gray.light.owner.definition.entity.ProjectDetails;
+import gray.light.owner.entity.ProjectDetails;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;

@@ -1,11 +1,11 @@
 package gray.light.note.service;
 
 import gray.light.definition.entity.Scope;
-import gray.light.owner.definition.entity.OwnerProject;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.definition.entity.ProjectStatus;
-import gray.light.owner.service.OverallOwnerService;
-import gray.light.owner.service.ProjectDetailsService;
+import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.entity.ProjectStatus;
+import gray.light.owner.service.ReadableOwnerProjectService;
+import gray.light.owner.service.ReadableProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import perishing.constraint.jdbc.Page;
@@ -21,9 +21,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReadableNoteService {
 
-    private final OverallOwnerService overallOwnerService;
+    private final ReadableOwnerProjectService readableOwnerProjectService;
 
-    private final ProjectDetailsService projectDetailsService;
+    private final ReadableProjectDetailsService projectDetailsService;
 
     /**
      * 获取指定所属者的笔记
@@ -33,7 +33,7 @@ public class ReadableNoteService {
      * @return 获取指定所属者的笔记
      */
     public List<OwnerProject> noteProject(Long ownerId, Page page) {
-        return overallOwnerService.projects(ownerId, Scope.NOTE, page);
+        return readableOwnerProjectService.projects(ownerId, Scope.NOTE, page);
     }
 
     /**

@@ -1,6 +1,7 @@
 package gray.light.support.web;
 
 import gray.light.support.error.ExtractRequestParamException;
+import gray.light.support.error.KnownBusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -12,6 +13,7 @@ import perishing.constraint.treasure.chest.collection.FinalVariables;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -20,10 +22,43 @@ import java.util.function.Function;
 import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
+ * 处理请求支持，例如提取参数或者参数类型转换等操作
+ *
  * @author XyParaCrim
  */
 @Slf4j
 public final class RequestSupport {
+
+    /**
+     * 从一个请求里，按照要求提取参数并转换成指定类型对象
+     *
+     * @param request 请求
+     * @param requestParams 按照要求提取参数并转换成指定类型对象
+     * @return 按照要求提取参数并转换成指定类型对象
+     */
+    public static RequestParamVariables extractVariables(ServerRequest request, List<RequestParam<?>> requestParams) {
+        Map<String, Object> paramValues = new HashMap<>(requestParams.size());
+
+        for (RequestParam<?> entry : requestParams) {
+            Object t;
+            try {
+                String name = entry.getKey();
+                RequestParamExtractor<?> extractor = entry.getExtractor();
+
+                t = extractor.extract(request, name);
+            } catch (ExtractRequestParamException e) {
+                log.error(e.getMessage());
+                throw new KnownBusinessException(e);
+            }
+
+            if (t != null) {
+                paramValues.put(entry.getKey(), t);
+            }
+        }
+
+        return new RequestParamVariables(paramValues);
+    }
+
 
     public static HandlerFunction<ServerResponse> routerFunction(Function<FinalVariables<String>,
             Mono<ServerResponse>> then, RequestParam<?> ...paramsTable) {

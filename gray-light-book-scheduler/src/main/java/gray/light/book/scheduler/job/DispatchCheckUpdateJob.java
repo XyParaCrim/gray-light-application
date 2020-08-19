@@ -1,6 +1,6 @@
 package gray.light.book.scheduler.job;
 
-import gray.light.owner.definition.entity.ProjectDetails;
+import gray.light.owner.entity.ProjectDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;

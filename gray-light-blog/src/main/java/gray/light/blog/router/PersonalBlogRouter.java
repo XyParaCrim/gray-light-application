@@ -7,6 +7,7 @@ import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.RequestSupport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.*;
@@ -18,7 +19,7 @@ import static gray.light.support.web.ResponseToClient.allRightFromValue;
  *
  * @author XyParaCrim
  */
-@CommonsLog
+@Slf4j
 @RequiredArgsConstructor
 public class PersonalBlogRouter {
 

@@ -6,10 +6,11 @@
     <parent>
         <artifactId>gray-light-core</artifactId>
         <groupId>org.excellent-cancer</groupId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
     </parent>
 
     <artifactId>gray-light-owner</artifactId>
+    <version>4.0.2</version>
 
     <dependencies>
 
@@ -27,22 +28,7 @@
 
         <!-- floor components -->
 
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
-            <artifactId>floor-persistent</artifactId>
-        </dependency>
-
         <!-- gray light module -->
-
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-support</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-definition</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>

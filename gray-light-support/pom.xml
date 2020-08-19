@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.excellent-cancer</groupId>
         <artifactId>gray-light-core</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
     </parent>
 
     <artifactId>gray-light-support</artifactId>

@@ -1,9 +1,9 @@
 package gray.light.document.service;
 
 import gray.light.document.repository.WorksDocumentRepository;
-import gray.light.owner.definition.entity.OwnerProject;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.definition.entity.ProjectStatus;
+import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.entity.ProjectStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;

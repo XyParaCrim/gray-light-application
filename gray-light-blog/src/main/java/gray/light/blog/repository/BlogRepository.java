@@ -9,6 +9,11 @@ import perishing.constraint.jdbc.Page;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * blog表的访问接口
+ *
+ * @author XyParaCrim
+ */
 @Mapper
 public interface BlogRepository {
 

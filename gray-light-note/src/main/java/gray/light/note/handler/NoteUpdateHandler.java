@@ -4,11 +4,11 @@ import gray.light.definition.entity.Scope;
 import gray.light.note.business.NoteBo;
 import gray.light.note.business.NoteFo;
 import gray.light.note.service.WritableNoteService;
-import gray.light.owner.definition.customizer.OwnerProjectCustomizer;
-import gray.light.owner.definition.customizer.ProjectDetailsCustomizer;
-import gray.light.owner.definition.entity.OwnerProject;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.service.OverallOwnerService;
+import gray.light.owner.customizer.OwnerProjectCustomizer;
+import gray.light.owner.customizer.ProjectDetailsCustomizer;
+import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.service.ReadableOwnerProjectService;
 import gray.light.support.error.NormalizingFormException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class NoteUpdateHandler {
 
     private final WritableNoteService writableNoteService;
 
-    private final OverallOwnerService overallOwnerService;
+    private final ReadableOwnerProjectService readableOwnerProjectService;
 
     /**
      * 为所属者添加一个笔记
@@ -53,7 +53,7 @@ public class NoteUpdateHandler {
                     ProjectDetails uncommited = ProjectDetailsCustomizer.uncommitProjectDetails(noteFo.getSource());
 
                     if (writableNoteService.createNote(noteProject, uncommited)) {
-                        Optional<OwnerProject> savedProject = overallOwnerService.findProject(noteProject.getId());
+                        Optional<OwnerProject> savedProject = readableOwnerProjectService.findProject(noteProject.getId());
                         if (savedProject.isPresent()) {
                             return allRightFromValue(NoteBo.of(savedProject.get()));
                         }

@@ -1,9 +1,9 @@
 package gray.light.note.service;
 
 import gray.light.definition.entity.Scope;
-import gray.light.owner.definition.entity.OwnerProject;
-import gray.light.owner.definition.entity.ProjectDetails;
-import gray.light.owner.service.ProjectDetailsService;
+import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.service.WritableProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WritableNoteService {
 
-    private final ProjectDetailsService projectDetailsService;
+    private final WritableProjectDetailsService writableProjectDetailsService;
 
     /**
      * 创建一个笔记项目并追踪它
@@ -24,7 +24,7 @@ public class WritableNoteService {
      * @return 是否创建成功
      */
     public boolean createNote(OwnerProject noteProject, ProjectDetails uncommited) {
-        return projectDetailsService.addBookProjectDetailsSafely(noteProject, Scope.NOTE, uncommited);
+        return writableProjectDetailsService.addBookProjectDetailsSafely(noteProject, Scope.NOTE, uncommited);
     }
 
 }
