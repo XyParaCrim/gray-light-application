@@ -1,9 +1,9 @@
-package gray.light.owner.customizer;
+package gray.light.owner.definition.customizer;
 
 
 import gray.light.definition.entity.Scope;
-import gray.light.owner.business.OwnerProjectFo;
-import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.definition.entity.OwnerProject;
+import gray.light.owner.definition.business.OwnerProjectFo;
 
 import java.util.Map;
 

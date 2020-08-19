@@ -1,6 +1,6 @@
 package gray.light.note.business;
 
-import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.definition.entity.OwnerProject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

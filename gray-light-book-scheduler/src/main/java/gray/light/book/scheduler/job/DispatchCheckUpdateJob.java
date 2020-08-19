@@ -1,6 +1,6 @@
 package gray.light.book.scheduler.job;
 
-import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
@@ -8,7 +8,6 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.springframework.amqp.core.AmqpTemplate;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

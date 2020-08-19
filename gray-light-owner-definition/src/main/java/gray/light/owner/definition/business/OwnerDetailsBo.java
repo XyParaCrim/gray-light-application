@@ -1,6 +1,6 @@
-package gray.light.owner.business;
+package gray.light.owner.definition.business;
 
-import gray.light.owner.entity.Owner;
+import gray.light.owner.definition.entity.Owner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

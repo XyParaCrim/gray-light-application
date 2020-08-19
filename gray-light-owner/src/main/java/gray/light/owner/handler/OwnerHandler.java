@@ -1,11 +1,12 @@
 package gray.light.owner.handler;
 
-import gray.light.owner.business.OwnerDetailsBo;
-import gray.light.owner.entity.Owner;
+import gray.light.owner.definition.business.OwnerDetailsBo;
+import gray.light.owner.definition.entity.Owner;
 import gray.light.owner.service.OverallOwnerService;
 import gray.light.support.web.RequestSupport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
+import org.springframework.lang.NonNull;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -34,6 +35,7 @@ public class OwnerHandler {
      * @param request 请求
      * @return 回复
      */
+    @NonNull
     public Mono<ServerResponse> ownerDetails(ServerRequest request) {
         return RequestSupport.extractOwnerId(request, ownerId -> {
             Optional<Owner> queryResult = overallOwnerService.findOwner(ownerId);
@@ -50,6 +52,7 @@ public class OwnerHandler {
      * @param request 请求
      * @return 回复
      */
+    @NonNull
     public Mono<ServerResponse> queryOwnerProject(ServerRequest request) {
         return RequestSupport.extractOwnerId(request, ownerId ->
                 ownerProjectHandler.queryOwnerProject(ownerId, RequestSupport.extractPage(request)));

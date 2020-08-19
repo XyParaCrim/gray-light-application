@@ -12,10 +12,10 @@
     </parent>
 
     <artifactId>gray-light-core</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
 
     <properties>
-        <gray.light.dependencies>4.0.0</gray.light.dependencies>
+        <gray.light.dependencies>4.0.1</gray.light.dependencies>
     </properties>
 
     <modules>
@@ -23,6 +23,7 @@
         <module>gray-light-support</module>
         <module>gray-light-definition</module>
         <module>gray-light-owner</module>
+        <module>gray-light-owner-definition</module>
         <module>gray-light-blog</module>
         <module>gray-light-blog-admin</module>
         <module>gray-light-blog-scheduler</module>
@@ -35,6 +36,7 @@
         <module>gray-light-note</module>
         <module>gray-light-note-scheduler</module>
         <module>gray-light-stream-book-source</module>
+        <module>gray-light-owner-client</module>
     </modules>
 
     <dependencyManagement>

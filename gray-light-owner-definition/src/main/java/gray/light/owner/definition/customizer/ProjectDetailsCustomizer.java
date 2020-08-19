@@ -1,8 +1,8 @@
-package gray.light.owner.customizer;
+package gray.light.owner.definition.customizer;
 
-import gray.light.owner.business.ProjectDetailsFo;
-import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.entity.ProjectStructure;
+import gray.light.owner.definition.business.ProjectDetailsFo;
+import gray.light.owner.definition.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectStructure;
 
 public final class ProjectDetailsCustomizer {
 

@@ -1,7 +1,7 @@
 package gray.light.owner.repository;
 
-import gray.light.owner.entity.Owner;
-import gray.light.owner.entity.Privilege;
+import gray.light.owner.definition.entity.Owner;
+import gray.light.owner.definition.entity.Privilege;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import perishing.constraint.jdbc.Page;

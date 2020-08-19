@@ -1,9 +1,9 @@
 package gray.light.document.repository;
 
 import gray.light.document.entity.WorksDocument;
-import gray.light.owner.entity.OwnerProject;
-import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.entity.ProjectStatus;
+import gray.light.owner.definition.entity.OwnerProject;
+import gray.light.owner.definition.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectStatus;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import perishing.constraint.jdbc.Page;

@@ -1,11 +1,12 @@
-package gray.light.owner.business;
+package gray.light.owner.definition.business;
 
 import gray.light.support.error.NormalizingFormException;
 import lombok.Data;
 import perishing.constraint.treasure.chest.ResourceTreasureChest;
 import perishing.constraint.treasure.chest.StringTreasureChest;
 
-import static org.springframework.util.StringUtils.*;
+import static org.springframework.util.StringUtils.isEmpty;
+import static org.springframework.util.StringUtils.trimAllWhitespace;
 
 /**
  * 创建owner-project的请求表单

@@ -1,6 +1,6 @@
-package gray.light.owner.error;
+package gray.light.owner.definition.error;
 
-import gray.light.owner.entity.Owner;
+import gray.light.owner.definition.entity.Owner;
 import lombok.NonNull;
 import lombok.extern.apachecommons.CommonsLog;
 

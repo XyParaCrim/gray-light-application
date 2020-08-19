@@ -1,4 +1,4 @@
-package gray.light.owner.entity;
+package gray.light.owner.definition.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

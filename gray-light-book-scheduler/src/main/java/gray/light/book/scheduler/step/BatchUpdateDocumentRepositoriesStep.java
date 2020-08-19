@@ -4,7 +4,7 @@ import gray.light.book.DocumentRepositoryVisitor;
 import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookChapter;
 import gray.light.book.service.WritableBookService;
-import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectDetails;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import reactor.util.function.Tuple2;

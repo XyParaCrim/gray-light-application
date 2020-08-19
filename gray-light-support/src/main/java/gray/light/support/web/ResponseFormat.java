@@ -1,23 +1,29 @@
 package gray.light.support.web;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 /**
  * 定义服务器回复格式
  *
  * @author XyParaCrim
  */
-@Data
-@Builder(access = AccessLevel.PACKAGE)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseFormat {
 
-    private final int code;
+    // TODO 因为foreign修改属性值final
 
-    private final Object data;
+    @Getter
+    @Setter
+    private int code;
 
-    @Builder.Default
-    private final String msg = "";
+    @Getter
+    @Setter
+    private Object data;
+
+    @Getter
+    @Setter
+    private String msg = "";
 
 }

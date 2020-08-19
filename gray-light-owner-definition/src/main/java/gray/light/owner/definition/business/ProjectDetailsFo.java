@@ -1,4 +1,4 @@
-package gray.light.owner.business;
+package gray.light.owner.definition.business;
 
 import gray.light.support.error.NormalizingFormException;
 import lombok.Data;

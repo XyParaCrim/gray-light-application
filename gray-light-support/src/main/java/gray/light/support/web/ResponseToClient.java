@@ -32,8 +32,8 @@ public final class ResponseToClient {
         return assemblyResponse(ServerResponse.ok(), success());
     }
 
-    public static Mono<ServerResponse> badRequestCauseMissingParameter(String paramterName) {
-        return assemblyResponse(ServerResponse.badRequest(), error("Missing parameter: " + paramterName));
+    public static Mono<ServerResponse> badRequestCauseMissingParameter(String parameterName) {
+        return assemblyResponse(ServerResponse.badRequest(), error("Missing parameter: " + parameterName));
     }
 
     private static Mono<ServerResponse> assemblyResponse(ServerResponse.BodyBuilder body, ResponseFormat response) {

@@ -1,14 +1,13 @@
 package gray.light.owner.service;
 
 import gray.light.definition.entity.Scope;
-import gray.light.owner.customizer.ProjectDetailsCustomizer;
-import gray.light.owner.entity.OwnerProject;
-import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.entity.ProjectStatus;
+import gray.light.owner.definition.customizer.ProjectDetailsCustomizer;
+import gray.light.owner.definition.entity.OwnerProject;
+import gray.light.owner.definition.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectStatus;
 import gray.light.owner.repository.ProjectDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import perishing.constraint.jdbc.Page;
 

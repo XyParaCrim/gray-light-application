@@ -1,13 +1,9 @@
 package gray.light.document.business;
 
-import gray.light.owner.business.OwnerProjectFo;
-import gray.light.owner.business.ProjectDetailsFo;
-import gray.light.owner.customizer.ProjectDetailsCustomizer;
-import gray.light.owner.entity.OwnerProject;
-import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.definition.business.OwnerProjectFo;
+import gray.light.owner.definition.business.ProjectDetailsFo;
 import gray.light.support.error.NormalizingFormException;
 import lombok.Data;
-import perishing.constraint.treasure.chest.ResourceTreasureChest;
 
 /**
  * 创建文档的表单

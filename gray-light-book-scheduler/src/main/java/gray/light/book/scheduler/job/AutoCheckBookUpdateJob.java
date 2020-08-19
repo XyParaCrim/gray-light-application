@@ -2,21 +2,17 @@ package gray.light.book.scheduler.job;
 
 import gray.light.book.entity.BookChapter;
 import gray.light.book.service.*;
-import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.entity.ProjectStatus;
+import gray.light.owner.definition.entity.ProjectDetails;
 import gray.light.owner.service.ProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import perishing.constraint.jdbc.Page;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.function.Supplier;
 
 /**

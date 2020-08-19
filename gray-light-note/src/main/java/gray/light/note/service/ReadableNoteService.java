@@ -1,9 +1,9 @@
 package gray.light.note.service;
 
 import gray.light.definition.entity.Scope;
-import gray.light.owner.entity.OwnerProject;
-import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.entity.ProjectStatus;
+import gray.light.owner.definition.entity.OwnerProject;
+import gray.light.owner.definition.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectStatus;
 import gray.light.owner.service.OverallOwnerService;
 import gray.light.owner.service.ProjectDetailsService;
 import lombok.RequiredArgsConstructor;

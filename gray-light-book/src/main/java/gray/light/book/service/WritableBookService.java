@@ -4,7 +4,7 @@ import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookChapter;
 import gray.light.book.repository.BookCatalogRepository;
 import gray.light.book.repository.BookChapterRepository;
-import gray.light.owner.entity.ProjectDetails;
+import gray.light.owner.definition.entity.ProjectDetails;
 import gray.light.owner.service.ProjectDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;

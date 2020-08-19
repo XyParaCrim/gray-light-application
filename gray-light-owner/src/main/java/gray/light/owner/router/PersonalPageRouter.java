@@ -1,9 +1,9 @@
 package gray.light.owner.router;
 
+
 import gray.light.owner.handler.OwnerHandler;
 import gray.light.owner.handler.WorksHandler;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.*;
 
 /**

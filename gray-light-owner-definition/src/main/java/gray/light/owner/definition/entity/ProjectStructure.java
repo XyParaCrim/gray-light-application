@@ -1,4 +1,4 @@
-package gray.light.owner.entity;
+package gray.light.owner.definition.entity;
 
 /**
  * 表示一个Git项目的结构

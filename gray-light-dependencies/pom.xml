@@ -12,23 +12,23 @@
     </parent>
 
     <artifactId>gray-light-dependencies</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
 
     <properties>
-        <gray.light.support>4.0.0</gray.light.support>
-        <gray.light.definition>4.0.0</gray.light.definition>
-        <gray.light.owner>4.0.0</gray.light.owner>
-        <gray.light.blog>4.0.0</gray.light.blog>
-        <gray.light.blog.admin>4.0.0</gray.light.blog.admin>
-        <gray.light.blog.scheduler>4.0.0</gray.light.blog.scheduler>
-        <gray.light.blog.search>4.0.0</gray.light.blog.search>
-        <gray.light.source>4.0.0</gray.light.source>
-        <gray.light.book>4.0.0</gray.light.book>
-        <gray.light.book.scheduler>4.0.0</gray.light.book.scheduler>
-        <gray.light.document>4.0.0</gray.light.document>
-        <gray.light.document.scheduler>4.0.0</gray.light.document.scheduler>
-        <gray.light.note>4.0.0</gray.light.note>
-        <gray.light.note.scheduler>4.0.0</gray.light.note.scheduler>
+        <gray.light.support>4.0.1</gray.light.support>
+        <gray.light.definition>4.0.1</gray.light.definition>
+        <gray.light.owner>4.0.1</gray.light.owner>
+        <gray.light.blog>4.0.1</gray.light.blog>
+        <gray.light.blog.admin>4.0.1</gray.light.blog.admin>
+        <gray.light.blog.scheduler>4.0.1</gray.light.blog.scheduler>
+        <gray.light.blog.search>4.0.1</gray.light.blog.search>
+        <gray.light.source>4.0.1</gray.light.source>
+        <gray.light.book>4.0.1</gray.light.book>
+        <gray.light.book.scheduler>4.0.1</gray.light.book.scheduler>
+        <gray.light.document>4.0.1</gray.light.document>
+        <gray.light.document.scheduler>4.0.1</gray.light.document.scheduler>
+        <gray.light.note>4.0.1</gray.light.note>
+        <gray.light.note.scheduler>4.0.1</gray.light.note.scheduler>
     </properties>
 
     <dependencyManagement>
@@ -48,6 +48,12 @@
             <dependency>
                 <groupId>org.excellent-cancer</groupId>
                 <artifactId>gray-light-owner</artifactId>
+                <version>${gray.light.owner}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-owner-definition</artifactId>
                 <version>${gray.light.owner}</version>
             </dependency>
 

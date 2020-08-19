@@ -1,7 +1,7 @@
 package gray.light.document.customizer;
 
 import gray.light.document.entity.WorksDocument;
-import gray.light.owner.entity.OwnerProject;
+import gray.light.owner.definition.entity.OwnerProject;
 
 public final class WorksDocumentCustomizer {
 
