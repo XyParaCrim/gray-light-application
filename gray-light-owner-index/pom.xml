@@ -9,23 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gray-light-owner-definition</artifactId>
+    <artifactId>gray-light-owner-index</artifactId>
 
     <dependencies>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>floor-persistent</artifactId>
+            <artifactId>floor-search</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
             <artifactId>gray-light-definition</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-support</artifactId>
         </dependency>
 
     </dependencies>

@@ -1,7 +1,7 @@
-package gray.light.owner.search.operation;
+package gray.light.owner.index.operation;
 
 import gray.light.definition.search.hit.LongIdHit;
-import gray.light.owner.indices.OwnerIndex;
+import gray.light.owner.index.indices.OwnerIndex;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;

@@ -1,21 +1,16 @@
 package gray.light.owner.config;
 
+import floor.domain.DomainComponentRegistrarWithPermission;
+import floor.domain.EnableDomainPermission;
 import gray.light.owner.annotation.DomainOwner;
 import gray.light.owner.handler.*;
+import gray.light.owner.index.operation.OwnerSearchOperation;
 import gray.light.owner.router.OwnerQueryRouter;
+import gray.light.owner.router.OwnerSearchRouter;
 import gray.light.owner.router.OwnerUpdateRouter;
 import gray.light.owner.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.util.ClassUtils;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 根据{@link DomainOwner}的配置选项，进行有选择装载组件
@@ -23,36 +18,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author XyParaCrim
  */
 @Slf4j
-public class OwnerComponentRegistrar implements ImportBeanDefinitionRegistrar {
-
-    private final AtomicBoolean configured = new AtomicBoolean();
+public class OwnerComponentRegistrar extends DomainComponentRegistrarWithPermission<DomainOwner> {
 
     @Override
-    public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
-        if (configured.get() || !configured.compareAndSet(false, true)) {
-            log.warn("Error DomainOwner repeat registration: {}", metadata.getClassName());
-        }
+    protected EnableDomainPermission enableDomainPermission(DomainOwner domainOwner) {
+        return domainOwner.permission();
+    }
 
-        AnnotationAttributes attrs = AnnotatedElementUtils.getMergedAnnotationAttributes(
-                ClassUtils.resolveClassName(metadata.getClassName(), null),
-                DomainOwner.class);
-        DomainOwner domainOwner = domainOwnerProperties(attrs, metadata.getClassName());
-
-        // 如果DomainOwner#value为true，说明支持所属者领域
-        if (domainOwner.value()) {
-            registerQueryComponents(registry);
-
-            // 根据配置，选择加载只读、可写和搜索组件
-
-            if (!domainOwner.onlyRead()) {
-                registerUpdateComponents(registry);
-            }
-
-            if (domainOwner.searchService()) {
-                registerSearchComponents(registry);
-            }
-
-        }
+    @Override
+    protected Class<DomainOwner> annotationType() {
+        return DomainOwner.class;
     }
 
     /**
@@ -60,7 +35,8 @@ public class OwnerComponentRegistrar implements ImportBeanDefinitionRegistrar {
      *
      * @param registry bean注册器
      */
-    private void registerQueryComponents(BeanDefinitionRegistry registry) {
+    @Override
+    protected void registerQueryComponents(BeanDefinitionRegistry registry) {
         registerComponent(ReadableOwnerService.class, registry);
         registerComponent(ReadableOwnerProjectService.class, registry);
         registerComponent(ReadableProjectDetailsService.class, registry);
@@ -77,7 +53,8 @@ public class OwnerComponentRegistrar implements ImportBeanDefinitionRegistrar {
      *
      * @param registry bean注册器
      */
-    private void registerUpdateComponents(BeanDefinitionRegistry registry) {
+    @Override
+    protected void registerUpdateComponents(BeanDefinitionRegistry registry) {
         registerComponent(WritableOwnerService.class, registry);
         registerComponent(WritableOwnerProjectService.class, registry);
         registerComponent(WritableProjectDetailsService.class, registry);
@@ -94,18 +71,12 @@ public class OwnerComponentRegistrar implements ImportBeanDefinitionRegistrar {
      *
      * @param registry bean注册器
      */
-    private void registerSearchComponents(BeanDefinitionRegistry registry) {
-
+    @Override
+    protected void registerSearchComponents(BeanDefinitionRegistry registry) {
+        registerComponent(OwnerSearchOperation.class, registry);
+        registerComponent(SearchOwnerService.class, registry);
+        registerComponent(OwnerSearchHandler.class, registry);
+        registerComponent(OwnerSearchRouter.class, registry);
     }
 
-    private void registerComponent(Class<?> type, BeanDefinitionRegistry registry) {
-        RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(type);
-        registry.registerBeanDefinition(type.getName(), rootBeanDefinition);
-    }
-
-
-    private DomainOwner domainOwnerProperties(AnnotationAttributes attrs, String className) {
-        return AnnotationUtils.synthesizeAnnotation(attrs,
-                DomainOwner.class, ClassUtils.resolveClassName(className, null));
-    }
 }

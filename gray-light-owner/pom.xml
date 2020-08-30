@@ -28,11 +28,21 @@
 
         <!-- floor components -->
 
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>floor-domain</artifactId>
+        </dependency>
+
         <!-- gray light module -->
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
             <artifactId>gray-light-owner-definition</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>gray-light-owner-index</artifactId>
         </dependency>
 
         <!-- others -->

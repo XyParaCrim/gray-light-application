@@ -2,6 +2,7 @@ package gray.light.owner.router;
 
 import gray.light.owner.business.OwnerProjectFo;
 import gray.light.owner.handler.WorksProjectUpdateHandler;
+import gray.light.owner.meta.OwnerServiceRequestPaths;
 import gray.light.support.RouterFunctionSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -23,7 +24,7 @@ public class OwnerUpdateRouter {
     @Bean
     public RouterFunction<ServerResponse> newWorks(WorksProjectUpdateHandler handler) {
         return RouterFunctionSupport.
-                post("/owner/works", OwnerProjectFo.class).
+                post(OwnerServiceRequestPaths.OF_OWNER_OF_WORKS, OwnerProjectFo.class).
                 handle(handler::addWorksProject).
                 build();
     }

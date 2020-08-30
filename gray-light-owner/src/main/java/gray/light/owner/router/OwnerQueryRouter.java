@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import static gray.light.owner.meta.OwnerServiceRequestPaths.*;
+
 /**
  * 所属者的查询请求路由
  *
@@ -25,7 +27,7 @@ public class OwnerQueryRouter {
     @Bean
     public RouterFunction<ServerResponse> getOwnerDetails(OwnerQueryHandler handler) {
         return RouterFunctionSupport.
-                get("/owner").
+                get(OF_OWNER).
                 requireParam(RequestParamTables.ownerId()).
                 handle(handler::ownerDetails).
                 build();
@@ -40,7 +42,7 @@ public class OwnerQueryRouter {
     @Bean
     public RouterFunction<ServerResponse> queryOwnerProject(OwnerProjectQueryHandler handler) {
         return RouterFunctionSupport.
-                get("/owner/owner-project").
+                get(OF_OWNER_OF_PROJECT).
                 requireParam(RequestParamTables.page()).
                 requireParam(RequestParamTables.ownerId()).
                 handle(handler::queryOwnerProject).
@@ -56,7 +58,7 @@ public class OwnerQueryRouter {
     @Bean
     public RouterFunction<ServerResponse> queryOwnerWorks(WorksProjectQueryHandler handler) {
         return RouterFunctionSupport.
-                get("/owner/works").
+                get(OF_OWNER_OF_WORKS).
                 requireParam(RequestParamTables.page()).
                 requireParam(RequestParamTables.ownerId()).
                 handle(handler::queryWorksProject).

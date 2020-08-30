@@ -19,6 +19,7 @@
         <gray.light.definition>4.0.1</gray.light.definition>
         <gray.light.owner>4.0.2</gray.light.owner>
         <gray.light.owner.definition>4.0.1</gray.light.owner.definition>
+        <gray.light.owner.index>4.0.1</gray.light.owner.index>
         <gray.light.blog>4.0.1</gray.light.blog>
         <gray.light.blog.admin>4.0.1</gray.light.blog.admin>
         <gray.light.blog.scheduler>4.0.1</gray.light.blog.scheduler>
@@ -56,6 +57,12 @@
                 <groupId>org.excellent-cancer</groupId>
                 <artifactId>gray-light-owner-definition</artifactId>
                 <version>${gray.light.owner.definition}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.excellent-cancer</groupId>
+                <artifactId>gray-light-owner-index</artifactId>
+                <version>${gray.light.owner.index}</version>
             </dependency>
 
             <dependency>

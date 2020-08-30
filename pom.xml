@@ -25,6 +25,7 @@
 
         <module>gray-light-owner-definition</module>
         <module>gray-light-owner</module>
+        <module>gray-light-owner-index</module>
 
         <module>gray-light-blog-definition</module>
         <module>gray-light-blog</module>

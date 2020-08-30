@@ -1,5 +1,6 @@
 package gray.light.owner.client;
 
+import gray.light.owner.meta.OwnerServiceRequestPaths;
 import gray.light.support.web.ResponseFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ public interface OwnerServiceClient {
      * @param ownerId owner id
      * @return 回复
      */
-    @GetMapping("/owner")
+    @GetMapping(OwnerServiceRequestPaths.OF_OWNER)
     Mono<ResponseFormat> getOwnerDetails(@RequestParam(value = "ownerId") Long ownerId);
 
 }

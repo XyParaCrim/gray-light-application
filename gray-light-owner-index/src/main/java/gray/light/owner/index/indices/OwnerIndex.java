@@ -1,4 +1,4 @@
-package gray.light.owner.indices;
+package gray.light.owner.index.indices;
 
 import floor.search.SearchSupport;
 import lombok.Builder;

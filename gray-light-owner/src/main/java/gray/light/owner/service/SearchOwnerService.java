@@ -2,7 +2,7 @@ package gray.light.owner.service;
 
 import gray.light.definition.search.hit.LongIdHit;
 import gray.light.owner.entity.Owner;
-import gray.light.owner.search.operation.OwnerSearchOperation;
+import gray.light.owner.index.operation.OwnerSearchOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.elasticsearch.core.SearchHits;
 
