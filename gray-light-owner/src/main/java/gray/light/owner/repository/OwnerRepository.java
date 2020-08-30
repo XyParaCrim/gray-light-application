@@ -38,6 +38,14 @@ public interface OwnerRepository {
     List<Owner> findAll(@Param("page") Page page);
 
     /**
+     * 通过批量ID查询批量所属者
+     *
+     * @param batchId 批量ID
+     * @return 通过批量ID查询批量所属者
+     */
+    List<Owner> findBatch(@Param("batchId") List<Long> batchId);
+
+    /**
      * 查询指定超级权限的所属者
      *
      * @param privilege 指定超级权限

@@ -1,6 +1,11 @@
 package gray.light.support.error;
 
-public class ExtractRequestParamException extends Exception {
+/**
+ * 从请求提取参数时，发生异常，一般是类型无法转换
+ *
+ * @author XyParaCrim
+ */
+public class ExtractRequestParamException extends KnownBusinessException {
 
     public ExtractRequestParamException(String message) {
         super(message);

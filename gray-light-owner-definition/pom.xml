@@ -20,6 +20,11 @@
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
+            <artifactId>floor-search</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
             <artifactId>gray-light-definition</artifactId>
         </dependency>
 

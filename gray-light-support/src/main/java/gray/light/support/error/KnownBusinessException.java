@@ -17,6 +17,10 @@ public class KnownBusinessException extends RuntimeException {
         super(cause);
     }
 
+    public KnownBusinessException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public ResponseFormat toResponseFormat() {
         return null;
     }

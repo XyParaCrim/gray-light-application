@@ -15,6 +15,13 @@
         <include refid="pageable"/>
     </select>
 
+    <select id="findBatch"
+            resultType="Owner">
+        select id, username, organization, super_privilege
+        from owner
+        where id in <foreach collection="batchId" separator="," item="item" index="idx" open="(" close=")">item</foreach>
+    </select>
+
     <select id="findById" resultType="Owner">
         select *
         from owner

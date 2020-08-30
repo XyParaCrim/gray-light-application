@@ -5,6 +5,11 @@ import perishing.constraint.treasure.chest.CollectionsTreasureChest;
 
 import java.nio.file.Path;
 
+/**
+ * 常用的请求参数类型转换
+ *
+ * @author XyParaCrim
+ */
 public final class RequestParamTables {
 
     public static final RequestParam<Long> OWNER_ID = paramTable("ownerId", RequestParamExtractors::extractLong);
@@ -19,6 +24,7 @@ public final class RequestParamTables {
 
     public static final RequestParam<Path> LOCATION = paramTable("location", RequestParamExtractors::extractPath);
 
+    public static final RequestParam<String> SEARCH = paramTable("search", RequestParamExtractors::extract);
 
     public static  <T> RequestParam<T> paramTable(String name, RequestParamExtractor<T> extractor) {
         return new RequestParam<>(CollectionsTreasureChest.entry(name, extractor));
@@ -46,6 +52,10 @@ public final class RequestParamTables {
 
     public static RequestParam<Path> location() {
         return LOCATION;
+    }
+
+    public static RequestParam<String> search() {
+        return SEARCH;
     }
 
 }

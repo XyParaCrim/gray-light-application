@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * 提供多种参数提取器实现
+ *
+ * @author XyParaCrim
+ */
 public class RequestParamExtractors {
 
     public static Long extractLong(ServerRequest request, String key) throws ExtractRequestParamException {
