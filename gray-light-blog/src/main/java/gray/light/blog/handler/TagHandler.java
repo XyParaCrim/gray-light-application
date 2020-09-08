@@ -8,13 +8,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 import static gray.light.support.web.RequestParamTables.ownerId;
 import static gray.light.support.web.RequestParamTables.page;
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 处理关于tag的http请求
@@ -38,6 +38,6 @@ public class TagHandler {
         Page page = page().get(params);
         Long ownerId = ownerId().get(params);
 
-        return allRightFromValue(tagService.allOwnerTags(ownerId, page));
+        return ResponseBuffet.allRight(tagService.allOwnerTags(ownerId, page));
     }
 }

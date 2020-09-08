@@ -8,12 +8,10 @@ import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.RequestParamVariables;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * 关于所属者的请求查询处理方法
@@ -35,8 +33,8 @@ public class OwnerQueryHandler {
         Long ownerId = RequestParamTables.ownerId().get(variables);
         Optional<Owner> queryResult = readableOwnerService.findOwner(ownerId);
 
-        return queryResult.isEmpty() ? failWithMessage("The user does not exist: " + ownerId) :
-                allRightFromValue(OwnerDetailsBo.of(queryResult.get()));
+        return queryResult.isEmpty() ? ResponseBuffet.failByInternalError("The user does not exist: " + ownerId) :
+                ResponseBuffet.allRight(OwnerDetailsBo.of(queryResult.get()));
     }
 
 }

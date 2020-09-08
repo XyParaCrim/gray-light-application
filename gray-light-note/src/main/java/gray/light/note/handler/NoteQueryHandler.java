@@ -10,9 +10,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 处理作品笔记的查询请求
@@ -37,7 +36,7 @@ public class NoteQueryHandler {
         Page page = RequestParamTables.page().get(variables);
         Long ownerId = RequestParamTables.ownerId().get(variables);
 
-        return allRightFromValue(readableNoteService.noteProject(ownerId, page));
+        return ResponseBuffet.allRight(readableNoteService.noteProject(ownerId, page));
     }
 
 

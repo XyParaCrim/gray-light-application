@@ -24,4 +24,14 @@ public interface OwnerServiceClient {
     @GetMapping(OwnerServiceRequestPaths.OF_OWNER)
     Mono<ResponseFormat> getOwnerDetails(@RequestParam(value = "ownerId") Long ownerId);
 
+
+    /**
+     * 获取指定所属者的所有所属者项目
+     *
+     * @param handler 处理
+     * @return 路由方法
+     */
+    // Mono<ResponseFormat>
+
+
 }

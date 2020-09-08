@@ -6,15 +6,13 @@ import gray.light.owner.customizer.OwnerProjectCustomizer;
 import gray.light.owner.entity.OwnerProject;
 import gray.light.owner.service.ReadableOwnerProjectService;
 import gray.light.owner.service.WritableOwnerProjectService;
-import gray.light.support.web.ResponseToClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * 关于所属者项目更新处理方法
@@ -56,8 +54,8 @@ public class OwnerProjectUpdateHandler {
                 flatMap(
                         addedProject ->
                                 addedProject.
-                                        map(ResponseToClient::allRightFromValue).
-                                        orElseGet(() -> failWithMessage("Failed to add favorite " + project.getScope() + " project."))
+                                        map(ResponseBuffet::allRight).
+                                        orElseGet(() -> ResponseBuffet.failByInternalError("Failed to add favorite " + project.getScope() + " project."))
                 );
     }
 

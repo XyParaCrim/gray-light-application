@@ -8,14 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
 
 import static gray.light.support.web.RequestParamTables.*;
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * @author XyParaCrim
@@ -34,9 +33,9 @@ public class BlogQueryHandler {
         if (TagHandler.TAGS_PARAM.contains(params)) {
             List<Tag> tags = TagHandler.TAGS_PARAM.get(params);
 
-            return allRightFromValue(readableBlogService.findBlogsByTags(ownerId, tags, page));
+            return ResponseBuffet.allRight(readableBlogService.findBlogsByTags(ownerId, tags, page));
         } else {
-            return allRightFromValue(readableBlogService.findBlogs(ownerId, page));
+            return ResponseBuffet.allRight(readableBlogService.findBlogs(ownerId, page));
         }
     }
 
@@ -45,10 +44,10 @@ public class BlogQueryHandler {
 
         Optional<BlogBo> details = readableBlogService.findBlogDetails(id);
         if (details.isEmpty()) {
-            return failWithMessage("The blog does not exist: " + id);
+            return ResponseBuffet.failByInternalError("The blog does not exist: " + id);
         }
 
-        return allRightFromValue(details.get());
+        return ResponseBuffet.allRight(details.get());
     }
 
 }

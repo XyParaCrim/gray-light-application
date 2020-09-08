@@ -1,15 +1,15 @@
 package gray.light.support;
 
-import gray.light.support.error.KnownBusinessException;
 import gray.light.support.web.RequestParam;
 import gray.light.support.web.RequestParamVariables;
 import gray.light.support.web.RequestSupport;
-import gray.light.support.web.ResponseToClient;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.*;
+import perishing.constraint.web.KnownBusinessException;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public final class RouterFunctionSupport {
             try {
                 return handlerFunction.handle(request);
             } catch (KnownBusinessException known) {
-                return ResponseToClient.fromKnownException(known);
+                return ResponseBuffet.failByKnownException(known);
             }
         };
     }

@@ -6,11 +6,10 @@ import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.RequestParamVariables;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 关于所属者搜索的请求处理
@@ -32,7 +31,7 @@ public class OwnerSearchHandler {
         String words = RequestParamTables.search().get(variables);
         List<Owner> searchResult = searchOwnerService.globalSearchOwner(words);
 
-        return allRightFromValue(searchResult);
+        return ResponseBuffet.allRight(searchResult);
     }
 
 }

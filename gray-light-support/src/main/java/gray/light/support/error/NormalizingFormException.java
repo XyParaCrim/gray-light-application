@@ -1,5 +1,8 @@
 package gray.light.support.error;
 
+import perishing.constraint.web.KnownBusinessException;
+import perishing.constraint.web.ResponseCode;
+
 /**
  * 请求表单类型转换错误
  *
@@ -8,7 +11,7 @@ package gray.light.support.error;
 public class NormalizingFormException extends KnownBusinessException {
 
     public NormalizingFormException(String message) {
-        super(message);
+        super(ResponseCode.CommonResponseCode.ERROR_INTERNAL, message);
     }
 
     /**

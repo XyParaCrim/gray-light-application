@@ -10,12 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
 import java.util.List;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 处理查询请求
@@ -39,7 +38,7 @@ public class BookQueryHandler {
             Tuple2<List<BookCatalog>, List<BookChapter>> queryResult = readableBookService.catalogAndChapter(projectId);
             ContainsCatalogCatalogBo rootBo = CatalogsTreeWalker.walk(queryResult.getT1(), queryResult.getT2());
 
-            return allRightFromValue(rootBo.getCatalogs());
+            return ResponseBuffet.allRight(rootBo.getCatalogs());
         });
     }
 

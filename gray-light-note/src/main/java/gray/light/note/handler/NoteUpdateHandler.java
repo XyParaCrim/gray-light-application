@@ -14,12 +14,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * @author XyParaCrim
@@ -46,7 +44,7 @@ public class NoteUpdateHandler {
                         noteFo.normalize();
                     } catch (NormalizingFormException e) {
                         log.error(e.getMessage());
-                        return failWithMessage(e.getMessage());
+                        return ResponseBuffet.failByInternalError(e.getMessage());
                     }
 
                     OwnerProject noteProject = OwnerProjectCustomizer.fromForm(noteFo.getNote(), Scope.NOTE);
@@ -55,11 +53,11 @@ public class NoteUpdateHandler {
                     if (writableNoteService.createNote(noteProject, uncommited)) {
                         Optional<OwnerProject> savedProject = readableOwnerProjectService.findProject(noteProject.getId());
                         if (savedProject.isPresent()) {
-                            return allRightFromValue(NoteBo.of(savedProject.get()));
+                            return ResponseBuffet.allRight(NoteBo.of(savedProject.get()));
                         }
                     }
 
-                    return failWithMessage("Failed to create note");
+                    return ResponseBuffet.failByInternalError("Failed to create note");
 
                 });
     }

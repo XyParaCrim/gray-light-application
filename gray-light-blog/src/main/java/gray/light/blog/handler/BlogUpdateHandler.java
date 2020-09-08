@@ -10,12 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * 提供修改处理的handler
@@ -38,7 +36,7 @@ public class BlogUpdateHandler {
                         blogFo.normalize();
                     } catch (NormalizingFormException e) {
                         log.error(e.getMessage());
-                        return failWithMessage(e.getMessage());
+                        return ResponseBuffet.failByInternalError(e.getMessage());
                     }
 
                     byte[] content = blogFo.getContent().getBytes();
@@ -47,10 +45,10 @@ public class BlogUpdateHandler {
                     if (writableBlogService.addBlog(blog, content)) {
                         Optional<Blog> savedBlog = readableBlogService.findBlog(blog.getId());
                         if (savedBlog.isPresent()) {
-                            return allRightFromValue(savedBlog.get());
+                            return ResponseBuffet.allRight(savedBlog.get());
                         }
                     }
-                    return failWithMessage("Failed to add blog");
+                    return ResponseBuffet.failByInternalError("Failed to add blog");
                 });
     }
 

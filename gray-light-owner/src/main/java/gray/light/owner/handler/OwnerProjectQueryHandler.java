@@ -8,9 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 关于所属者项目查询处理方法
@@ -33,7 +32,7 @@ public class OwnerProjectQueryHandler {
         Long ownerId = RequestParamTables.ownerId().get(variables);
         Page page = RequestParamTables.page().get(variables);
 
-        return allRightFromValue(readableOwnerProjectService.projects(ownerId, page));
+        return ResponseBuffet.allRight(readableOwnerProjectService.projects(ownerId, page));
     }
 
     // 包级帮助方法
@@ -47,7 +46,7 @@ public class OwnerProjectQueryHandler {
      * @return Response of Publisher
      */
     Mono<ServerResponse> queryOwnerProject(Long ownerId, Scope scope, Page page) {
-        return allRightFromValue(readableOwnerProjectService.projects(ownerId, scope, page));
+        return ResponseBuffet.allRight(readableOwnerProjectService.projects(ownerId, scope, page));
     }
 
 }

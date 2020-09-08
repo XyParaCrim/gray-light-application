@@ -12,10 +12,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
-
-import static gray.light.support.web.ResponseToClient.allRight;
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 处理关于搜索的请求，例如缓存scrollId
@@ -51,7 +49,7 @@ public class BlogSearchHandler {
 
                     searchScrollCache.cache(webSession.getId(), hits.getScrollId(), ids -> ids.forEach(searchBlogService::clearSearch));
 
-                    return allRightFromValue(hits);
+                    return ResponseBuffet.allRight(hits);
                 });
     }
 
@@ -72,7 +70,7 @@ public class BlogSearchHandler {
 
                     searchScrollCache.cache(webSession.getId(), hits.getScrollId(), ids -> ids.forEach(searchBlogService::clearSearch));
 
-                    return allRightFromValue(hits);
+                    return ResponseBuffet.allRight(hits);
                 });
     }
 
@@ -93,7 +91,7 @@ public class BlogSearchHandler {
                     searchBlogService.clearSearch(scrollId);
                     searchScrollCache.remove(webSession.getId(), scrollId);
 
-                    return allRight();
+                    return ResponseBuffet.allRight();
                 });
     }
 

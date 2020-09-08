@@ -6,13 +6,11 @@ import gray.light.blog.service.ReadableBlogService;
 import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.RequestSupport;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.apachecommons.CommonsLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.*;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
+import perishing.constraint.web.flux.ResponseBuffet;
 
 /**
  * 关于Blog的http请求
@@ -31,7 +29,7 @@ public class PersonalBlogRouter {
     public RouterFunction<ServerResponse> test(ReadableBlogService readableBlogService) {
         return RouterFunctions.route(RequestPredicates.GET("/owner/blogs"), request -> RequestSupport.extract(
                 request,
-                variables -> allRightFromValue(readableBlogService.findBlogsIncludeTags(RequestParamTables.ownerId().get(variables), RequestParamTables.page().get(variables))),
+                variables -> ResponseBuffet.allRight(readableBlogService.findBlogsIncludeTags(RequestParamTables.ownerId().get(variables), RequestParamTables.page().get(variables))),
                 RequestParamTables.page(),
                 RequestParamTables.ownerId()
         ));

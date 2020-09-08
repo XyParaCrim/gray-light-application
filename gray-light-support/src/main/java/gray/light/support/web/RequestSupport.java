@@ -1,15 +1,16 @@
 package gray.light.support.web;
 
 import gray.light.support.error.ExtractRequestParamException;
-import gray.light.support.error.KnownBusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.HandlerFunction;
-import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.CollectionsTreasureChest;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.KnownBusinessException;
+import perishing.constraint.web.ResponseCode;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -18,8 +19,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * 处理请求支持，例如提取参数或者参数类型转换等操作
@@ -48,7 +47,7 @@ public final class RequestSupport {
                 t = extractor.extract(request, name);
             } catch (ExtractRequestParamException e) {
                 log.error(e.getMessage());
-                throw new KnownBusinessException(e);
+                throw new KnownBusinessException(ResponseCode.CommonResponseCode.ERROR_INTERNAL, e);
             }
 
             if (t != null) {
@@ -88,7 +87,7 @@ public final class RequestSupport {
                 t = extractor.extract(request, name);
             } catch (ExtractRequestParamException e) {
                 log.error(e.getMessage());
-                return failWithMessage(e.getMessage());
+                return ResponseBuffet.failByInternalError(e.getMessage());
             }
 
             if (t != null) {
@@ -114,7 +113,7 @@ public final class RequestSupport {
                 t = extractor.extract(request, name);
             } catch (ExtractRequestParamException e) {
                 log.error(e.getMessage());
-                return failWithMessage(e.getMessage());
+                return ResponseBuffet.failByInternalError(e.getMessage());
             }
 
             if (t != null) {
@@ -132,7 +131,7 @@ public final class RequestSupport {
             value = RequestParamExtractors.extractLong(request, name);
         } catch (ExtractRequestParamException e) {
             log.error(e.getMessage());
-            return failWithMessage(e.getMessage());
+            return ResponseBuffet.failByInternalError(e.getMessage());
         }
 
         return then.apply(value);

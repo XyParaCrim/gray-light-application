@@ -10,13 +10,13 @@ import gray.light.blog.service.TagService;
 import gray.light.blog.service.WritableBlogService;
 import gray.light.support.web.RequestParamTables;
 import gray.light.support.web.RequestSupport;
-import gray.light.support.web.ResponseToClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.server.*;
 import perishing.constraint.io.FileSupport;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
@@ -108,7 +108,7 @@ public class BlogAdminLocalOptionsRouter {
         return RouterFunctions.route(predicate, request -> {
             Optional<String> tags = request.queryParam("tags");
             if (tags.isEmpty()) {
-                return ResponseToClient.badRequestCauseMissingParameter("tags");
+                return ResponseBuffet.failByMissParameters("tag");
             }
 
             for (String tag : tags.get().split(",")) {
@@ -119,7 +119,7 @@ public class BlogAdminLocalOptionsRouter {
                 }
             }
 
-            return ResponseToClient.allRight();
+            return ResponseBuffet.allRight();
         });
     }
 
@@ -148,7 +148,7 @@ public class BlogAdminLocalOptionsRouter {
 
         CACHED_EXECUTOR.execute(new ScanMarkdownAndPersistent(path, ownerId));
 
-        return ResponseToClient.allRight();
+        return ResponseBuffet.allRight();
     }
 
 

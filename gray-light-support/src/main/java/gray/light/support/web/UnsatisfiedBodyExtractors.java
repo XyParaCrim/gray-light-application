@@ -2,10 +2,10 @@ package gray.light.support.web;
 
 import lombok.extern.apachecommons.CommonsLog;
 import perishing.constraint.treasure.chest.ResourceTreasureChest;
+import perishing.constraint.web.flux.ResponseBuffet;
 
 import java.util.Optional;
 
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 import static org.springframework.util.StringUtils.isEmpty;
 import static org.springframework.util.StringUtils.trimAllWhitespace;
 
@@ -24,7 +24,7 @@ public final class UnsatisfiedBodyExtractors {
             (key, properties) ->
                     isEmpty(properties.
                             computeIfPresent(key, (entryKey, entryValue) -> trimAllWhitespace((String) entryValue))) ?
-                            Optional.of(failWithMessage("The property's value of " + key + " is empty.")) :
+                            Optional.of(ResponseBuffet.failByInternalError("The property's value of " + key + " is empty.")) :
                             Optional.empty()
     );
 
@@ -51,7 +51,7 @@ public final class UnsatisfiedBodyExtractors {
                             return null;
                         }
                     }) == null ?
-                            Optional.of(failWithMessage("The property's value of " + key + " is not long type")) :
+                            Optional.of(ResponseBuffet.failByInternalError("The property's value of " + key + " is not long type")) :
                             Optional.empty()
     );
 
@@ -59,7 +59,7 @@ public final class UnsatisfiedBodyExtractors {
             (key, properties) ->
                     ResourceTreasureChest.isGitUrl((String) properties.get(key)) ?
                             Optional.empty() :
-                            Optional.of(failWithMessage("The property's value of " + key + " is not a git url"))
+                            Optional.of(ResponseBuffet.failByInternalError("The property's value of " + key + " is not a git url"))
     );
 
 }

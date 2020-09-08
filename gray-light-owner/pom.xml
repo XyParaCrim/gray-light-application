@@ -26,6 +26,11 @@
             <artifactId>perishing-constraint-jdbc</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>perishing-constraint-web-flux</artifactId>
+        </dependency>
+
         <!-- floor components -->
 
         <dependency>

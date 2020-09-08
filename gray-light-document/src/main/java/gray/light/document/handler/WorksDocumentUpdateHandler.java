@@ -14,13 +14,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
-import static gray.light.support.web.ResponseToClient.failWithMessage;
 
 /**
  * 处理作品文档的更新请求
@@ -52,7 +50,7 @@ public class WorksDocumentUpdateHandler {
             documentFo.normalize();
         } catch (NormalizingFormException e) {
             log.error(e.getMessage());
-            return failWithMessage(e.getMessage());
+            return ResponseBuffet.failByInternalError(e.getMessage());
         }
 
         Long worksId = documentFo.getWorksId();
@@ -71,11 +69,11 @@ public class WorksDocumentUpdateHandler {
                             if (success) {
                                 Optional<OwnerProject> savedProject = readableOwnerProjectService.findProject(documentProject.getId());
                                 if (savedProject.isPresent()) {
-                                    return allRightFromValue(DocumentBo.of(savedProject.get(), worksId));
+                                    return ResponseBuffet.allRight(DocumentBo.of(savedProject.get(), worksId));
                                 }
                             }
 
-                            return failWithMessage("Failed to add works document");
+                            return ResponseBuffet.failByInternalError("Failed to add works document");
                         }
 
                 );

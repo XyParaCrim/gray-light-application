@@ -9,9 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import perishing.constraint.jdbc.Page;
 import perishing.constraint.treasure.chest.collection.FinalVariables;
+import perishing.constraint.web.flux.ResponseBuffet;
 import reactor.core.publisher.Mono;
-
-import static gray.light.support.web.ResponseToClient.allRightFromValue;
 
 /**
  * 处理作品文档的查询请求
@@ -37,7 +36,7 @@ public class WorksDocumentQueryHandler {
         Long ownerId = RequestParamTables.ownerId().get(variables);
 
 
-        return allRightFromValue(readableOwnerProjectService.projects(ownerId, Scope.DOCUMENT, page));
+        return ResponseBuffet.allRight(readableOwnerProjectService.projects(ownerId, Scope.DOCUMENT, page));
     }
 
     /**
@@ -51,7 +50,7 @@ public class WorksDocumentQueryHandler {
         Long worksId = RequestParamTables.worksId().get(variables);
 
 
-        return allRightFromValue(readableDocumentService.findDocumentByWorks(worksId, page));
+        return ResponseBuffet.allRight(readableDocumentService.findDocumentByWorks(worksId, page));
     }
 
 
