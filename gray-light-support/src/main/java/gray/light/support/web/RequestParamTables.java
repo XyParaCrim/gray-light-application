@@ -12,13 +12,19 @@ import java.nio.file.Path;
  */
 public final class RequestParamTables {
 
+    public static final String PAGE_FIELD = "page";
+
+    public static final String PAGE_COUNT_FIELD = "count";
+
+    public static final String OWNER_ID_FIELD = "ownerId";
+
     public static final RequestParam<Long> OWNER_ID = paramTable("ownerId", RequestParamExtractors::extractLong);
 
     public static final RequestParam<Long> WORKS_ID = paramTable("worksId", RequestParamExtractors::extractLong);
 
     public static final RequestParam<Long> ID = paramTable("id", RequestParamExtractors::extractLong);
 
-    public static final RequestParam<Page> PAGE = paramTable("page", RequestParamExtractors::extractPage);
+    public static final RequestParam<Page> PAGE = paramTable(PAGE_FIELD, RequestParamExtractors::extractPage);
 
     public static final RequestParam<Page> TAGS = paramTable("tag", RequestParamExtractors::extractPage);
 
