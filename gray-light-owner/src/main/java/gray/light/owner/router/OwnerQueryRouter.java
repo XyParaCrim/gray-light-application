@@ -1,5 +1,6 @@
 package gray.light.owner.router;
 
+import gray.light.definition.web.DefinitionRequestParamTables;
 import gray.light.owner.handler.OwnerProjectQueryHandler;
 import gray.light.owner.handler.OwnerQueryHandler;
 import gray.light.owner.handler.WorksProjectQueryHandler;
@@ -62,6 +63,23 @@ public class OwnerQueryRouter {
                 requireParam(RequestParamTables.page()).
                 requireParam(RequestParamTables.ownerId()).
                 handle(handler::queryWorksProject).
+                build();
+    }
+
+    /**
+     * 查询指定所属者的范围项目
+     *
+     * @param handler works处理
+     * @return 路由方法
+     */
+    @Bean
+    public RouterFunction<ServerResponse> queryOwnerScopeWorks(OwnerProjectQueryHandler handler) {
+        return RouterFunctionSupport.
+                get(OF_OWNER_OF_PROJECT_OF_SCOPE).
+                requireParam(RequestParamTables.page()).
+                requireParam(RequestParamTables.ownerId()).
+                requireParam(DefinitionRequestParamTables.scope()).
+                handle(handler::queryOwnerScopeProject).
                 build();
     }
 

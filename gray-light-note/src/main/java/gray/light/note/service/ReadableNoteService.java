@@ -33,7 +33,7 @@ public class ReadableNoteService {
      * @return 获取指定所属者的笔记
      */
     public List<OwnerProject> noteProject(Long ownerId, Page page) {
-        return readableOwnerProjectService.projects(ownerId, Scope.NOTE, page);
+        return readableOwnerProjectService.projects(ownerId, Scope.NOTE, page).getItems();
     }
 
     /**

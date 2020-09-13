@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
+ *
  * @author XyParaCrim
  */
 @Data

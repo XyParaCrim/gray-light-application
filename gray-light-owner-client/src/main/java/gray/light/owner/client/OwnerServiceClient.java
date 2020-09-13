@@ -1,8 +1,10 @@
 package gray.light.owner.client;
 
+import gray.light.definition.web.DefinitionRequestParamTables;
 import gray.light.owner.business.OwnerDetailsBo;
 import gray.light.owner.entity.OwnerProject;
 import gray.light.owner.meta.OwnerServiceRequestPaths;
+import gray.light.support.web.PageChunk;
 import gray.light.support.web.RequestParamTables;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,10 +40,9 @@ public interface OwnerServiceClient {
      * @return 路由方法
      */
     @GetMapping(OwnerServiceRequestPaths.OF_OWNER_OF_PROJECT)
-    Mono<ResponseFormat<List<OwnerProject>>> queryOwnerProject(@RequestParam(RequestParamTables.PAGE_FIELD) int page,
-                                                               @RequestParam(RequestParamTables.PAGE_COUNT_FIELD) int count,
-                                                               @RequestParam(RequestParamTables.OWNER_ID_FIELD) long ownerId);
-
+    Mono<ResponseFormat<PageChunk<OwnerProject>>> queryOwnerProject(@RequestParam(RequestParamTables.PAGE_FIELD) int page,
+                                                                    @RequestParam(RequestParamTables.PAGE_COUNT_FIELD) int count,
+                                                                    @RequestParam(RequestParamTables.OWNER_ID_FIELD) long ownerId);
 
     /**
      * 查询指定所属者的works项目
@@ -52,7 +53,22 @@ public interface OwnerServiceClient {
      * @return 路由方法
      */
     @GetMapping(OwnerServiceRequestPaths.OF_OWNER_OF_WORKS)
-    Mono<ResponseFormat<List<OwnerProject>>> queryOwnerWorks(@RequestParam(RequestParamTables.PAGE_FIELD) int page,
+    Mono<ResponseFormat<PageChunk<OwnerProject>>> queryOwnerWorks(@RequestParam(RequestParamTables.PAGE_FIELD) int page,
                                                              @RequestParam(RequestParamTables.PAGE_COUNT_FIELD) int count,
                                                              @RequestParam(RequestParamTables.OWNER_ID_FIELD) long ownerId);
+
+    /**
+     * 查询指定所属者的范围项目
+     *
+     * @param page 页数
+     * @param count 数量
+     * @param ownerId 所属者ID
+     * @param scope 项目所属范围
+     * @return 路由方法
+     */
+    @GetMapping(OwnerServiceRequestPaths.OF_OWNER_OF_PROJECT_OF_SCOPE)
+    Mono<ResponseFormat<PageChunk<OwnerProject>>> queryOwnerScopeWorks(@RequestParam(RequestParamTables.PAGE_FIELD) int page,
+                                                                       @RequestParam(RequestParamTables.PAGE_COUNT_FIELD) int count,
+                                                                       @RequestParam(RequestParamTables.OWNER_ID_FIELD) long ownerId,
+                                                                       @RequestParam(DefinitionRequestParamTables.SCOPE_FIELD) String scope);
 }

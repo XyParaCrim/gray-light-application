@@ -9,28 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gray-light-definition</artifactId>
+    <artifactId>gray-light-document-definition</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>floor-persistent</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-support</artifactId>
+            <artifactId>gray-light-owner-definition</artifactId>
         </dependency>
     </dependencies>
+
 
 </project>

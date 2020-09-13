@@ -43,17 +43,27 @@
             <artifactId>floor-storage-file</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>floor-domain</artifactId>
+        </dependency>
+
         <!-- gray light module -->
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-owner</artifactId>
+            <artifactId>gray-light-document-definition</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.excellent-cancer</groupId>
-            <artifactId>gray-light-book</artifactId>
+            <artifactId>gray-light-owner-client</artifactId>
         </dependency>
+
+<!--        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>gray-light-book</artifactId>
+        </dependency>-->
 
         <!-- others -->
 

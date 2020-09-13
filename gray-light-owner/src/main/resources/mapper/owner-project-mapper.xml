@@ -8,6 +8,19 @@
         </if>
     </sql>
 
+    <sql id="multiplePageable">
+        <if test="page != null">
+            limit #{page.from}, #{page.count};
+            <include refid="${template}"/>
+        </if>
+    </sql>
+
+    <resultMap id="total" type="integer">
+        <result column="total"/>
+    </resultMap>
+
+    <resultMap id="ownerProject" type="OwnerProject"/>
+
     <select id="findById"
             resultType="OwnerProject">
         select *
@@ -23,15 +36,22 @@
         <include refid="pageable"/>
     </select>
 
+    <sql id="findByOwnerIdAndScopeSQL">
+        select ${fileds}
+        from owner_project op
+        where op.owner_id = #{ownerId}
+        <if test="scope">and scope = #{scope}</if>
+    </sql>
+
     <select id="findByOwnerIdAndScope"
-            resultType="OwnerProject">
-        select *
-        from owner_project
-        where owner_id = #{ownerId}
-        <if test="scope != null">
-            and scope = #{scope}
-        </if>
-        <include refid="pageable"/>
+            resultMap="ownerProject,total">
+        <include refid="findByOwnerIdAndScopeSQL">
+            <property name="fileds" value="op.id,op.owner_id,op.created_date,op.updated_date,op.name,op.description,op.scope,op.home_page"/>
+        </include>
+        <include refid="multiplePageable">
+            <property name="template" value="findByOwnerIdAndScopeSQL"/>
+            <property name="fileds" value="COUNT(*) as total"/>
+        </include>
     </select>
 
     <select id="existsById"

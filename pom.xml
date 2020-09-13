@@ -42,6 +42,7 @@
         <module>gray-light-note-scheduler</module>
         <module>gray-light-stream-book-source</module>
         <module>gray-light-owner-client</module>
+        <module>gray-light-document-definition</module>
     </modules>
 
     <dependencyManagement>

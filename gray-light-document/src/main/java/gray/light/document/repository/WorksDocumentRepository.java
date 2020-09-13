@@ -1,6 +1,6 @@
 package gray.light.document.repository;
 
-import gray.light.document.entity.WorksDocument;
+import gray.light.document.definition.entity.WorksDocument;
 import gray.light.owner.entity.OwnerProject;
 import gray.light.owner.entity.ProjectDetails;
 import gray.light.owner.entity.ProjectStatus;

@@ -30,7 +30,7 @@ public class WorksProjectQueryHandler {
         Long ownerId = RequestParamTables.ownerId().get(variables);
         Page page = RequestParamTables.page().get(variables);
 
-        return ownerProjectHandler.queryOwnerProject(ownerId, SCOPE, page);
+        return ownerProjectHandler.queryOwnerScopeProject(ownerId, SCOPE, page);
     }
 
 

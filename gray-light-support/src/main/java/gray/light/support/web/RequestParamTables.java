@@ -12,7 +12,7 @@ import java.nio.file.Path;
  */
 public final class RequestParamTables {
 
-    public static final String PAGE_FIELD = "page";
+    public static final String PAGE_FIELD = "pages";
 
     public static final String PAGE_COUNT_FIELD = "count";
 
@@ -32,7 +32,7 @@ public final class RequestParamTables {
 
     public static final RequestParam<String> SEARCH = paramTable("search", RequestParamExtractors::extract);
 
-    public static  <T> RequestParam<T> paramTable(String name, RequestParamExtractor<T> extractor) {
+    public static <T> RequestParam<T> paramTable(String name, RequestParamExtractor<T> extractor) {
         return new RequestParam<>(CollectionsTreasureChest.entry(name, extractor));
     }
 

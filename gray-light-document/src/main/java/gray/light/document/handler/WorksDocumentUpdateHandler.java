@@ -1,24 +1,7 @@
 package gray.light.document.handler;
 
-import gray.light.definition.entity.Scope;
-import gray.light.document.business.DocumentBo;
-import gray.light.document.business.DocumentFo;
-import gray.light.document.service.WritableDocumentService;
-import gray.light.owner.customizer.OwnerProjectCustomizer;
-import gray.light.owner.customizer.ProjectDetailsCustomizer;
-import gray.light.owner.entity.OwnerProject;
-import gray.light.owner.entity.ProjectDetails;
-import gray.light.owner.service.ReadableOwnerProjectService;
-import gray.light.support.error.NormalizingFormException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
-import perishing.constraint.web.flux.ResponseBuffet;
-import reactor.core.publisher.Mono;
-
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * 处理作品文档的更新请求
@@ -29,20 +12,20 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class WorksDocumentUpdateHandler {
 
-    private final WritableDocumentService writableDocumentService;
+/*    private final WritableDocumentService writableDocumentService;
 
     private final ReadableOwnerProjectService readableOwnerProjectService;
 
-    /**
+    *//**
      * 根据请求表单，为所属者的项目添加一个文档
      *
-     * @param request 服务请求
+     * @param variables 参数表
      * @return Response of Publisher
-     */
-    public Mono<ServerResponse> addWorksDocumentByForm(ServerRequest request) {
-        return request.
-                bodyToMono(DocumentFo.class).
-                flatMap(this::createWorksDocumentWithNormalize);
+     *//*
+    public Mono<ServerResponse> addWorksDocumentByForm(RequestParamVariables variables) {
+        DocumentFo form = variables.getBodyObject(DocumentFo.class);
+
+        return createWorksDocumentWithNormalize(form);
     }
 
     private Mono<ServerResponse> createWorksDocumentWithNormalize(DocumentFo documentFo) {
@@ -81,5 +64,5 @@ public class WorksDocumentUpdateHandler {
 
     private CompletableFuture<Boolean> addWorksDocumentProcessing(Long worksId, OwnerProject documentProject, ProjectDetails uncommited) {
         return CompletableFuture.supplyAsync(() -> writableDocumentService.addDocumentToWorks(worksId, documentProject, uncommited));
-    }
+    }*/
 }

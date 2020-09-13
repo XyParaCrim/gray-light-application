@@ -3,6 +3,10 @@ package gray.light.definition.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 记录该应用所有范围，例如文档，笔记等
  *
@@ -23,5 +27,7 @@ public class Scope {
     public final static Scope NOTE = new Scope("note", "");
 
     public final static Scope BLOG = new Scope("blog", "");
+
+    public final static List<Scope> SUPPORTED = List.of(WORKS, DOCUMENT, NOTE, BLOG);
 
 }

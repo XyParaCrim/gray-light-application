@@ -1,4 +1,4 @@
-package gray.light.document.entity;
+package gray.light.document.definition.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

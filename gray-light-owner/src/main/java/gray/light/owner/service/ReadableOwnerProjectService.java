@@ -3,6 +3,8 @@ package gray.light.owner.service;
 import gray.light.definition.entity.Scope;
 import gray.light.owner.entity.OwnerProject;
 import gray.light.owner.repository.OwnerProjectRepository;
+import gray.light.support.web.PageChunk;
+import gray.light.support.web.PageSupport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import perishing.constraint.jdbc.Page;
@@ -48,8 +50,8 @@ public class ReadableOwnerProjectService {
      * @param page 分页
      * @return 返回指定所属者的所有项目
      */
-    public List<OwnerProject> projects(Long ownerId, Page page) {
-        return projectRepository.findByOwnerIdAndScope(ownerId, null, page.nullable());
+    public PageChunk<OwnerProject> projects(Long ownerId, Page page) {
+        return PageSupport.page(projectRepository.findByOwnerIdAndScope(ownerId, null, page.nullable()), page);
     }
 
     /**
@@ -60,8 +62,8 @@ public class ReadableOwnerProjectService {
      * @param page 分页
      * @return 返回指定所属者的所有项目
      */
-    public List<OwnerProject> projects(Long ownerId, Scope scope, Page page) {
-        return projectRepository.findByOwnerIdAndScope(ownerId, scope.getName(), page.nullable());
+    public PageChunk<OwnerProject> projects(Long ownerId, Scope scope, Page page) {
+        return PageSupport.page(projectRepository.findByOwnerIdAndScope(ownerId, scope.getName(), page.nullable()), page);
     }
 
 }

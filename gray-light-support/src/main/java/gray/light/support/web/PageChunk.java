@@ -1,20 +1,23 @@
 package gray.light.support.web;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class PageChunk<T> {
 
-    private final int pages;
+    private int pages;
 
-    private final int count;
+    private int count;
 
-    private final int total;
+    private int total;
 
-    private final List<T> items;
+    private List<T> items;
 
 }

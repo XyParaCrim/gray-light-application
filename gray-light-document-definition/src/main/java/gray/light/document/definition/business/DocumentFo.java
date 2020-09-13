@@ -1,4 +1,4 @@
-package gray.light.document.business;
+package gray.light.document.definition.business;
 
 import gray.light.owner.business.OwnerProjectFo;
 import gray.light.owner.business.ProjectDetailsFo;

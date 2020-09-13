@@ -2,7 +2,7 @@ package gray.light.document.handler;
 
 import gray.light.definition.entity.Scope;
 import gray.light.document.service.ReadableDocumentService;
-import gray.light.owner.service.ReadableOwnerProjectService;
+import gray.light.owner.client.OwnerServiceClient;
 import gray.light.support.web.RequestParamTables;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class WorksDocumentQueryHandler {
 
-    private final ReadableOwnerProjectService readableOwnerProjectService;
+    private final OwnerServiceClient ownerServiceClient;
 
     private final ReadableDocumentService readableDocumentService;
 
@@ -35,8 +35,9 @@ public class WorksDocumentQueryHandler {
         Page page = RequestParamTables.page().get(variables);
         Long ownerId = RequestParamTables.ownerId().get(variables);
 
-
-        return ResponseBuffet.allRight(readableOwnerProjectService.projects(ownerId, Scope.DOCUMENT, page));
+        return ownerServiceClient.
+                queryOwnerScopeWorks(page.getPer(), page.getPage(), ownerId, Scope.DOCUMENT.getName()).
+                flatMap(ResponseBuffet::forward);
     }
 
     /**

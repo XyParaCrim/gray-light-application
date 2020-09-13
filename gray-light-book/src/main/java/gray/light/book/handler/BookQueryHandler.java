@@ -5,6 +5,8 @@ import gray.light.book.business.ContainsCatalogCatalogBo;
 import gray.light.book.entity.BookCatalog;
 import gray.light.book.entity.BookChapter;
 import gray.light.book.service.ReadableBookService;
+import gray.light.support.web.RequestParamTables;
+import gray.light.support.web.RequestParamVariables;
 import gray.light.support.web.RequestSupport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,5 +43,21 @@ public class BookQueryHandler {
             return ResponseBuffet.allRight(rootBo.getCatalogs());
         });
     }
+
+    /**
+     * 查询文档仓库的结构树
+     *
+     * @param variables 参数表
+     * @return Response of Publisher
+     */
+    public Mono<ServerResponse> queryBookStructureTree(RequestParamVariables variables) {
+        Long projectId = RequestParamTables.ID.get(variables);
+
+        Tuple2<List<BookCatalog>, List<BookChapter>> queryResult = readableBookService.catalogAndChapter(projectId);
+        ContainsCatalogCatalogBo rootBo = CatalogsTreeWalker.walk(queryResult.getT1(), queryResult.getT2());
+
+        return ResponseBuffet.allRight(rootBo.getCatalogs());
+    }
+
 
 }

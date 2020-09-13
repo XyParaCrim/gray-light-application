@@ -18,6 +18,11 @@ import java.lang.annotation.*;
 @Import({OwnerComponentRegistrar.class, OwnerAutoConfiguration.class})
 public @interface DomainOwner {
 
+    /**
+     * 配置领域服务的权限
+     *
+     * @return 领域服务的权限
+     */
     EnableDomainPermission permission() default @EnableDomainPermission;
 
 }

@@ -44,7 +44,7 @@ public interface OwnerProjectRepository {
      * @param page 分页
      * @return 通过OwnerId获取owner的所有project
      */
-    List<OwnerProject> findByOwnerIdAndScope(@Param("ownerId") Long ownerId, @Param("scope") String scope, @Param("page") Page page);
+    List<?> findByOwnerIdAndScope(@Param("ownerId") Long ownerId, @Param("scope") String scope, @Param("page") Page page);
 
     // 检测
 
